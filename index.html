@@ -1,6 +1,758 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><!DOCTYPE html>
+<head><!DOCTYPE html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>North Macedonia &middot; Travel Journal 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#1a2635;--dark:#223040;--mid:#2e3d50;
+  --text:#1c1a17;--muted:#6b6358;--warm:#9a8b78;
+  --border:#d4c9b5;--cream:#f5f0e8;--paper:#faf7f2;
+  --gold:#b8943a;--gold-light:#d4ab4f;--green:#3d6b4f;--amber:#9a6b1a;
+}
+body{background:var(--paper);color:var(--text);font-family:'Libre Baskerville',Georgia,serif;font-size:15px;line-height:1.7;min-height:100vh}
+
+/* MASTHEAD */
+.masthead{background:var(--black);color:var(--cream)}
+.masthead-top{border-bottom:1px solid var(--mid);padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.masthead-kicker{font-family:'Source Code Pro',monospace;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold)}
+.masthead-actions{display:flex;gap:.75rem}
+.btn-action{font-family:'Source Code Pro',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;background:transparent;border:1px solid var(--mid);color:var(--warm);padding:.4rem .9rem;cursor:pointer;transition:all .15s;border-radius:2px}
+.btn-action:hover{border-color:var(--gold);color:var(--gold)}
+.masthead-main{padding:2.5rem 2rem 2rem;text-align:center}
+.masthead-main::before,.masthead-main::after{content:'\2014\2014\2014\2014\2014';font-family:'Source Code Pro',monospace;font-size:.55rem;letter-spacing:.4em;color:var(--mid);display:block;margin-bottom:1.5rem}
+.masthead-main::after{margin-top:1.5rem;margin-bottom:0}
+.masthead-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,7vw,4.5rem);font-weight:300;letter-spacing:.06em;line-height:1;margin-bottom:.4rem}
+.masthead-subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--warm)}
+.masthead-meta{background:#161e2c;border-top:1px solid var(--mid);padding:1rem 2rem;display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
+.meta-item{text-align:center}
+.meta-label{font-family:'Source Code Pro',monospace;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.2rem}
+.meta-value{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--cream);letter-spacing:.04em}
+
+/* SEARCH */
+.search-bar{background:var(--cream);border-bottom:1px solid var(--border);padding:.75rem 1.5rem;display:flex;align-items:center;gap:.75rem}
+.search-bar label{font-family:'Source Code Pro',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.search-bar input{flex:1;max-width:280px;background:transparent;border:none;border-bottom:1px solid var(--warm);padding:.2rem .1rem;font-family:'Libre Baskerville',serif;font-size:.95rem;color:var(--text);outline:none}
+.search-bar input:focus{border-bottom-color:var(--gold)}
+#search-count{font-family:'Source Code Pro',monospace;font-size:.65rem;color:var(--muted)}
+mark.hl{background:#f0d870;color:var(--text);border-radius:2px;padding:0 1px}
+
+/* TABS */
+.tab-bar{background:var(--dark);border-bottom:1px solid var(--mid);display:flex;justify-content:center;position:sticky;top:0;z-index:200}
+.tab-btn{font-family:'Source Code Pro',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);background:transparent;border:none;border-bottom:2px solid transparent;padding:1rem 1.75rem;cursor:pointer;transition:all .15s}
+.tab-btn:hover{color:var(--cream)}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* PANELS */
+.panel{display:none}.panel.active{display:block}
+.container{max-width:780px;margin:0 auto;padding:2rem 1.25rem 4rem}
+
+/* SECTION LABEL */
+.section-label{font-family:'Source Code Pro',monospace;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:.6rem;border-bottom:1px solid var(--border);margin-bottom:1.1rem;margin-top:2rem}
+.section-label:first-child{margin-top:0}
+
+/* BOOKING CARDS */
+.booking-card{background:white;border:1px solid var(--border);border-left:3px solid var(--border);margin-bottom:.6rem;overflow:hidden;transition:border-left-color .2s,box-shadow .15s}
+.booking-card:hover{box-shadow:0 1px 8px rgba(28,26,23,.08)}
+.booking-card.status-booked,.booking-card.status-confirmed{border-left-color:var(--green)}
+.booking-card.status-pending{border-left-color:var(--amber)}
+.booking-card.status-daytrip{border-left-color:var(--gold)}
+.booking-summary{display:grid;grid-template-columns:100px 1fr auto auto;align-items:center;gap:1rem;padding:.9rem 1.1rem;cursor:pointer;transition:background .12s}
+.booking-summary:hover{background:#faf8f4}
+.bk-dates{font-family:'Source Code Pro',monospace;font-size:.6rem;letter-spacing:.05em;color:var(--muted);line-height:1.5}
+.bk-place{font-family:'Cormorant Garamond',serif;font-size:1.15rem}
+.bk-nights{font-family:'Source Code Pro',monospace;font-size:.58rem;color:var(--muted);white-space:nowrap}
+.status-pill{font-family:'Source Code Pro',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .6rem;border-radius:2px;border:1px solid;white-space:nowrap}
+.pill-booked,.pill-confirmed{color:var(--green);border-color:var(--green);background:#f0f6f2}
+.pill-pending{color:var(--amber);border-color:var(--amber);background:#fdf6e8}
+.pill-daytrip{color:var(--gold);border-color:var(--gold);background:#fdf8ee}
+.pill-transit{color:var(--muted);border-color:var(--border);background:var(--cream)}
+.pill-na{color:var(--muted);border-color:var(--border);background:var(--cream)}
+.booking-detail{display:none;padding:0 1.1rem 1.1rem;border-top:1px solid var(--cream)}
+.booking-card.open .booking-detail{display:block}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.9rem}
+.detail-grid.full{grid-template-columns:1fr}
+.field{display:flex;flex-direction:column;gap:.3rem}
+.field label{font-family:'Source Code Pro',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.field input,.field textarea,.field select{background:var(--cream);border:1px solid var(--border);padding:.4rem .6rem;font-family:'Libre Baskerville',serif;font-size:.88rem;color:var(--text);outline:none;border-radius:2px;transition:border-color .15s}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold);background:white}
+.field textarea{min-height:60px;resize:vertical;line-height:1.5}
+.field select{cursor:pointer}
+
+/* ITINERARY */
+.day-block{border-bottom:1px solid var(--border)}
+.day-block:last-child{border-bottom:none}
+.day-header{display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:1rem;padding:1rem 0;cursor:pointer;transition:all .12s}
+.day-header:hover{padding-left:.4rem;padding-right:.4rem;background:#f5f1ea;margin:0 -.4rem}
+.day-date{font-family:'Source Code Pro',monospace;font-size:.6rem;letter-spacing:.08em;color:var(--gold);line-height:1.5}
+.day-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+.day-type{font-family:'Source Code Pro',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right}
+.day-content{display:none;padding:0 0 1.25rem}
+.day-block.open .day-content{display:block}
+.activity-list{list-style:none;margin-bottom:1rem}
+.activity-list li{padding:.35rem 0 .35rem 1.5rem;position:relative;font-size:.92rem;border-bottom:1px solid #f0ebe0;color:#2e2b26}
+.activity-list li:last-child{border-bottom:none}
+.activity-list li::before{content:'\B7';position:absolute;left:.4rem;color:var(--gold);font-size:1.2em;top:.25rem}
+.activity-list li em{color:var(--muted);font-size:.87em}
+.activity-list a{color:inherit;text-decoration:none;border-bottom:1px solid var(--border);transition:border-color .15s,color .15s}
+.activity-list a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+.notes-field{margin-top:.75rem}
+.notes-field label{font-family:'Source Code Pro',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.35rem}
+.notes-field textarea{width:100%;background:var(--cream);border:1px solid var(--border);padding:.5rem .6rem;font-family:'Libre Baskerville',serif;font-size:.87rem;color:var(--text);outline:none;resize:vertical;min-height:52px;border-radius:2px;line-height:1.5}
+.notes-field textarea:focus{border-color:var(--gold);background:white}
+
+/* WEATHER */
+.weather-widget{margin-top:.75rem;background:var(--cream);border:1px solid var(--border);padding:.75rem 1rem;display:flex;align-items:center;gap:1rem;font-size:.85rem;flex-wrap:wrap}
+.weather-label{font-family:'Source Code Pro',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.weather-icon{font-size:1.5rem;line-height:1}
+.weather-temp{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--text)}
+.weather-desc{color:var(--muted);font-size:.82rem}
+.weather-wind{font-family:'Source Code Pro',monospace;font-size:.6rem;color:var(--muted);margin-left:auto}
+.weather-loading{color:var(--muted);font-size:.8rem;font-style:italic}
+
+/* MAPS */
+.map-section-label{font-family:'Source Code Pro',monospace;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:.6rem;border-bottom:1px solid var(--border);margin-bottom:1rem}
+.map-panel-inner{background:white;border:1px solid var(--border);overflow:hidden;margin-bottom:2rem}
+#leaflet-map-regional{height:320px;width:100%}
+#leaflet-map-detail{height:480px;width:100%}
+.map-legend{background:white;border:1px solid var(--border);padding:1rem 1.25rem;margin-bottom:2.5rem}
+.map-legend-title{font-family:'Source Code Pro',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem}
+.map-legend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.5rem 1.5rem;font-size:.88rem}
+.leg-num{color:var(--gold);font-weight:700}
+.leg-dates{color:var(--muted);font-size:.78em;display:block}
+
+/* BUDGET */
+.budget-block{background:var(--dark);color:var(--cream);margin-top:2rem;border:1px solid var(--mid)}
+.budget-bar{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;border-bottom:1px solid var(--mid);transition:background .15s}
+.budget-bar:hover{background:#1e2d42}
+.budget-bar-left{display:flex;align-items:center;gap:.75rem}
+.budget-title-text{font-family:'Source Code Pro',monospace;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--warm)}
+.budget-protected-label{font-family:'Source Code Pro',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--muted)}
+.budget-pin-area{display:none;padding:1.5rem 1.25rem;text-align:center;border-bottom:1px solid var(--mid)}
+.budget-pin-area p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--warm);margin-bottom:.9rem}
+.pin-row{display:flex;gap:.5rem;justify-content:center;align-items:center}
+.pin-row input{width:110px;background:var(--mid);border:1px solid #3a4d62;color:var(--cream);padding:.45rem .75rem;font-family:'Source Code Pro',monospace;font-size:1rem;letter-spacing:.4em;text-align:center;outline:none;border-radius:2px}
+.pin-row input:focus{border-color:var(--gold)}
+.btn-unlock{background:var(--gold);color:var(--black);border:none;padding:.45rem 1.1rem;font-family:'Source Code Pro',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s}
+.btn-unlock:hover{background:var(--gold-light)}
+.pin-msg{font-family:'Source Code Pro',monospace;font-size:.6rem;color:#c06060;margin-top:.5rem;display:none}
+.budget-open-area{display:none;padding:1.25rem}
+.budget-table{width:100%;border-collapse:collapse;margin-bottom:1.25rem;font-size:.88rem}
+.budget-table th{font-family:'Source Code Pro',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-align:left;padding:.4rem .5rem;border-bottom:1px solid var(--mid)}
+.budget-table td{padding:.5rem .5rem;border-bottom:1px solid #1e2d42;vertical-align:middle;color:var(--cream)}
+.budget-table tr:last-child td{border-bottom:none}
+.budget-table input{background:transparent;border:none;border-bottom:1px dashed #3a4d62;color:var(--cream);font-family:'Libre Baskerville',serif;font-size:.88rem;width:90px;text-align:right;padding:.1rem .2rem;outline:none}
+.budget-table input:focus{border-bottom-color:var(--gold)}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.dot-green{background:var(--green)}.dot-amber{background:var(--amber)}
+.budget-summary{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;background:#161e2c;padding:1rem 1.1rem;border-radius:2px;margin-bottom:1rem}
+.bs-label{font-family:'Source Code Pro',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.2rem}
+.bs-value{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold-light)}
+.budget-controls{display:flex;gap:.5rem}
+.btn-budget{font-family:'Source Code Pro',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;background:var(--mid);color:var(--warm);border:1px solid #3a4d62;padding:.4rem .9rem;cursor:pointer;border-radius:2px;transition:all .15s}
+.btn-budget:hover{border-color:var(--gold);color:var(--gold)}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid var(--mid);padding:2.5rem 1.5rem;text-align:center}
+.footer-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--warm);max-width:640px;margin:0 auto .75rem;line-height:1.7}
+.footer-attr{font-family:'Source Code Pro',monospace;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.footer-attr a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--mid);transition:color .15s,border-color .15s}
+.footer-attr a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--dark);color:var(--gold);border:1px solid var(--gold);padding:.6rem 1.1rem;font-family:'Source Code Pro',monospace;font-size:.62rem;letter-spacing:.15em;border-radius:2px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1}
+
+@media(max-width:580px){
+  .booking-summary{grid-template-columns:75px 1fr}
+  .bk-nights,.status-pill{display:none}
+  .detail-grid{grid-template-columns:1fr}
+  .budget-summary{grid-template-columns:1fr}
+  .day-header{grid-template-columns:75px 1fr}
+  .day-type{display:none}
+  .masthead-meta{gap:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-top">
+    
+    <div class="masthead-actions">
+      <button class="btn-action" onclick="window.print()">Print / Save PDF</button>
+      
+    </div>
+  </div>
+  <div class="masthead-main">
+    <h1 class="masthead-title">North Macedonia</h1>
+    <p class="masthead-subtitle">After Rebecca West&#8217;s Black Lamb and Grey Falcon</p>
+  </div>
+  <div class="masthead-meta">
+    <div class="meta-item"><span class="meta-label">Depart Boston</span><span class="meta-value">September 20, 2026</span></div>
+    <div class="meta-item"><span class="meta-label">Return</span><span class="meta-value">October 2, 2026</span></div>
+    <div class="meta-item"><span class="meta-label">Duration</span><span class="meta-value">12 days</span></div>
+    <div class="meta-item"><span class="meta-label">Route</span><span class="meta-value">Skopje &middot; Bitola &middot; Ohrid &middot; Mavrovo</span></div>
+  </div>
+</header>
+
+<div class="search-bar">
+  <label for="search-input" style="display:flex;align-items:center;gap:.4rem"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search</label>
+  <input type="text" id="search-input" oninput="doSearch(this.value)">
+  <span id="search-count"></span>
+</div>
+
+<nav class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('booking',this)">Booking Overview</button>
+  <button class="tab-btn" onclick="showTab('itinerary',this)">Itinerary</button>
+  <button class="tab-btn" onclick="showTab('map',this)">Route Map</button>
+</nav>
+
+<!-- BOOKING OVERVIEW -->
+<div id="panel-booking" class="panel active">
+<div class="container">
+  <div class="section-label">North Macedonia</div>
+  <div style="background:white;border:1px solid var(--border);padding:.9rem 1.1rem;margin-bottom:1.1rem;font-size:.9rem;color:var(--text);line-height:1.8">
+    <strong style="display:block;font-family:'Source Code Pro',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem">Regional Context</strong>
+    Macedonia sits at the heart of the western Balkans &#8212; a small landlocked republic where Ottoman mosques, Byzantine frescoes, Roman ruins, and Slavic Orthodox monasteries occupy the same valleys and hillsides. My itinerary moves south then north, following the geography Rebecca West traced: Skopje and into Kosovo, through the central plains to Bitola, west to Ohrid on its ancient lake, and up into the Mavrovo highlands. North Macedonia today is a republic of two million, independent since 1991 and still defining itself &#8212; politically, economically, and in relation to its neighbors. The questions West was asking in 1937 have not lost their urgency.
+  </div>
+
+  <div class="booking-card status-pending" id="bc-arrive">
+    <div class="booking-summary" onclick="toggleCard('bc-arrive')">
+      <div class="bk-dates">SEP 21</div><div class="bk-place">Skopje &#8212; Arrival</div>
+      <div class="bk-nights">Night 1</div><div class="status-pill pill-transit">Arrival</div>
+    </div>
+    <div class="booking-detail">
+      <div class="detail-grid">
+        <div class="field"><label>Hotel</label><input type="text" id="hotel-arrive" placeholder="Hotel name"></div>
+        <div class="field"><label>Status</label><select id="status-arrive" onchange="syncCardStatus('bc-arrive','status-arrive')"><option value="pending" selected>Pending</option><option value="booked">Booked</option><option value="confirmed">Confirmed</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="booking-card status-pending" id="bc-skopje">
+    <div class="booking-summary" onclick="toggleCard('bc-skopje')">
+      <div class="bk-dates">SEP 22</div><div class="bk-place">Skopje</div>
+      <div class="bk-nights">Night 2</div><div class="status-pill pill-pending">Pending</div>
+    </div>
+    <div class="booking-detail">
+      <div class="detail-grid">
+        <div class="field"><label>Hotel</label><input type="text" id="hotel-skopje" placeholder="Hotel name"></div>
+        <div class="field"><label>Status</label><select id="status-skopje" onchange="syncCardStatus('bc-skopje','status-skopje')"><option value="pending" selected>Pending</option><option value="booked">Booked</option><option value="confirmed">Confirmed</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="booking-card status-daytrip" id="bc-kosovo">
+    <div class="booking-summary" onclick="toggleCard('bc-kosovo')">
+      <div class="bk-dates">SEP 23</div><div class="bk-place">Gra&#269;anica, Kosovo</div>
+      <div class="bk-nights">Night 2 (Skopje)</div><div class="status-pill pill-daytrip">Day Trip</div>
+    </div>
+    <div class="booking-detail">
+    </div>
+  </div>
+
+  <div class="booking-card" id="bc-drive">
+    <div class="booking-summary" onclick="toggleCard('bc-drive')">
+      <div class="bk-dates">SEP 24</div><div class="bk-place">Drive to Bitola</div>
+      <div class="bk-nights">~2.5 hrs</div><div class="status-pill pill-transit">Transit</div>
+    </div>
+    <div class="booking-detail">
+    </div>
+  </div>
+
+  <div class="booking-card status-pending" id="bc-bitola">
+    <div class="booking-summary" onclick="toggleCard('bc-bitola')">
+      <div class="bk-dates">SEP 24&#8211;26</div><div class="bk-place">Bitola</div>
+      <div class="bk-nights">2 nights</div><div class="status-pill pill-pending">Pending</div>
+    </div>
+    <div class="booking-detail">
+      <div class="detail-grid">
+        <div class="field"><label>Hotel</label><input type="text" id="hotel-bitola" placeholder="Hotel name"></div>
+        <div class="field"><label>Status</label><select id="status-bitola" onchange="syncCardStatus('bc-bitola','status-bitola')"><option value="pending" selected>Pending</option><option value="booked">Booked</option><option value="confirmed">Confirmed</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="booking-card" id="bc-treskavec">
+    <div class="booking-summary" onclick="toggleCard('bc-treskavec')">
+      <div class="bk-dates">SEP 26</div><div class="bk-place">Bitola &#8594; Ohrid via Treskavec</div>
+      <div class="bk-nights">via Prilep</div><div class="status-pill pill-transit">Transit</div>
+    </div>
+    <div class="booking-detail">
+    </div>
+  </div>
+
+  <div class="booking-card status-pending" id="bc-ohrid">
+    <div class="booking-summary" onclick="toggleCard('bc-ohrid')">
+      <div class="bk-dates">SEP 26&#8211;29</div><div class="bk-place">Ohrid</div>
+      <div class="bk-nights">3 nights &middot; 2 full days</div><div class="status-pill pill-pending">Pending</div>
+    </div>
+    <div class="booking-detail">
+      <div class="detail-grid">
+        <div class="field"><label>Hotel</label><input type="text" id="hotel-ohrid" placeholder="Hotel name"></div>
+        <div class="field"><label>Status</label><select id="status-ohrid" onchange="syncCardStatus('bc-ohrid','status-ohrid')"><option value="pending" selected>Pending</option><option value="booked">Booked</option><option value="confirmed">Confirmed</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="booking-card status-pending" id="bc-mavrovo">
+    <div class="booking-summary" onclick="toggleCard('bc-mavrovo')">
+      <div class="bk-dates">SEP 29&#8211;OCT 1</div><div class="bk-place">Mavrovo / Bigorski</div>
+      <div class="bk-nights">2 nights &middot; 1.5h from Ohrid</div><div class="status-pill pill-pending">Pending</div>
+    </div>
+    <div class="booking-detail">
+      <div class="detail-grid">
+        <div class="field"><label>Hotel / Guesthouse</label><input type="text" id="hotel-mavrovo" placeholder="Name"></div>
+        <div class="field"><label>Status</label><select id="status-mavrovo" onchange="syncCardStatus('bc-mavrovo','status-mavrovo')"><option value="pending" selected>Pending</option><option value="booked">Booked</option><option value="confirmed">Confirmed</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="booking-card status-pending" id="bc-return">
+    <div class="booking-summary" onclick="toggleCard('bc-return')">
+      <div class="bk-dates">OCT 1&#8211;2</div><div class="bk-place">Skopje &#8212; Return</div>
+      <div class="bk-nights">2h from Mavrovo</div><div class="status-pill pill-transit">Return</div>
+    </div>
+    <div class="booking-detail">
+      <div class="detail-grid">
+        <div class="field"><label>Hotel (if needed)</label><input type="text" id="hotel-return" placeholder="Hotel or airport"></div>
+        <div class="field"><label>Status</label><select id="status-return" onchange="syncCardStatus('bc-return','status-return')"><option value="pending" selected>Pending</option><option value="booked">Booked</option><option value="confirmed">Confirmed</option><option value="na">N/A</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:2rem">Flights &amp; Transport</div>
+
+  <div class="booking-card status-booked" id="bc-outbound">
+    <div class="booking-summary" onclick="toggleCard('bc-outbound')">
+      <div class="bk-dates">SEP 20</div><div class="bk-place">Boston &#8594; Frankfurt &#8594; Skopje</div>
+      <div class="bk-nights">Lufthansa / Austrian</div><div class="status-pill pill-booked">Booked</div>
+    </div>
+    <div class="booking-detail">
+      <div style="font-size:.88rem;color:var(--muted);line-height:1.85;margin-top:.75rem">Lufthansa / Austrian Airlines &nbsp;&middot;&nbsp; Extra legroom &nbsp;&middot;&nbsp; Travel Guard insurance included</div>
+    </div>
+  </div>
+
+  <div class="booking-card status-booked" id="bc-inbound">
+    <div class="booking-summary" onclick="toggleCard('bc-inbound')">
+      <div class="bk-dates">OCT 2</div><div class="bk-place">Skopje &#8594; Vienna &#8594; Boston</div>
+      <div class="bk-nights">Austrian Airlines</div><div class="status-pill pill-booked">Booked</div>
+    </div>
+    <div class="booking-detail">
+      <div style="font-size:.88rem;color:var(--muted);line-height:1.85;margin-top:.75rem">Austrian Airlines &nbsp;&middot;&nbsp; Extra legroom booked</div>
+    </div>
+  </div>
+
+  <div class="booking-card status-confirmed" id="bc-car">
+    <div class="booking-summary" onclick="toggleCard('bc-car')">
+      <div class="bk-dates">SEP 21&#8211;OCT 2</div><div class="bk-place">Car Rental &#8212; Europcar, Skopje Airport</div>
+      <div class="bk-nights">VW Taigo Automatic</div><div class="status-pill pill-confirmed">Confirmed</div>
+    </div>
+    <div class="booking-detail">
+      <div style="font-size:.88rem;color:var(--muted);line-height:1.85;margin-top:.75rem">VW Taigo 1.0 Automatic &nbsp;&middot;&nbsp; Premium protection included &nbsp;&middot;&nbsp; <em>Pay at pickup</em></div>
+    </div>
+  </div>
+
+  <!-- BUDGET -->
+  <div class="budget-block">
+    <div class="budget-bar" onclick="toggleBudget()">
+      <div class="budget-bar-left"><span id="lock-glyph">&#128274;</span><span class="budget-title-text">Budget</span></div>
+      <span class="budget-protected-label">PIN protected</span>
+    </div>
+    <div class="budget-pin-area" id="budget-pin">
+      <p>Budget is private</p>
+      <div class="pin-row">
+        <input type="password" id="pin-field" maxlength="6" placeholder="&middot; &middot; &middot; &middot;" onkeydown="if(event.key==='Enter')checkPin()">
+        <button class="btn-unlock" onclick="checkPin()">Unlock</button>
+      </div>
+      <div class="pin-msg" id="pin-msg">Incorrect PIN</div>
+    </div>
+    <div class="budget-open-area" id="budget-open">
+      <table class="budget-table">
+        <thead><tr><th>Item</th><th>Status</th><th style="text-align:right">USD</th></tr></thead>
+        <tbody>
+          <tr><td>Flights &#8212; both legs</td><td><span class="dot dot-green"></span>Booked / Charged</td><td style="text-align:right"><input type="number" id="b-flights" placeholder="&#8212;" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Travel Insurance (Travel Guard)</td><td><span class="dot dot-green"></span>Booked / Charged</td><td style="text-align:right"><input type="number" id="b-insurance" placeholder="&#8212;" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Car Rental (Europcar, incl. protection)</td><td><span class="dot dot-green"></span>Confirmed / At Pickup</td><td style="text-align:right"><input type="number" id="b-car" placeholder="&#8212;" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Hotels &#8212; estimated</td><td><span class="dot dot-amber"></span>Pending</td><td style="text-align:right"><input type="number" id="b-hotels" placeholder="&#8212;" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Daily (food, fuel, entry fees)</td><td><span class="dot dot-amber"></span>Estimated</td><td style="text-align:right"><input type="number" id="b-daily" placeholder="&#8212;" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Miscellaneous buffer</td><td><span class="dot dot-amber"></span>Buffer</td><td style="text-align:right"><input type="number" id="b-misc" placeholder="&#8212;" step="0.01" oninput="calcBudget()"></td></tr>
+        </tbody>
+      </table>
+      <div class="budget-summary">
+        <div><span class="bs-label">Spent / Charged</span><span class="bs-value" id="b-spent">$&#8212;</span></div>
+        <div><span class="bs-label">Total Estimated</span><span class="bs-value" id="b-total">$&#8212;</span></div>
+      </div>
+      <div class="budget-controls"><button class="btn-budget" onclick="lockBudget()">Lock</button><button class="btn-budget" onclick="saveAll()">Save Changes</button></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ITINERARY -->
+<div id="panel-itinerary" class="panel">
+<div class="container">
+
+  <div class="day-block" id="day-arrive">
+    <div class="day-header" onclick="toggleDay('day-arrive',41.9973,21.4280,'Skopje')">
+      <div class="day-date">SEP 21<br>SUNDAY</div><div class="day-title">Arrive Skopje</div><div class="day-type">Arrival &middot; Night 1</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li>Land at <a href="https://en.wikipedia.org/wiki/Skopje_International_Airport" target="_blank">Alexander the Great Airport</a></li>
+        <li>Pick up VW Taigo automatic at Europcar desk</li>
+        <li>Check in, decompress</li>
+        <li>Easy first evening &#8212; local dinner, early night <em>(long travel day)</em></li>
+      </ul>
+      <div class="weather-widget" id="wx-arrive"><span class="weather-loading">Loading current conditions&#8230;</span></div>
+    </div>
+  </div>
+
+  <div class="day-block" id="day-skopje">
+    <div class="day-header" onclick="toggleDay('day-skopje',41.9973,21.4280,'Skopje')">
+      <div class="day-date">SEP 22<br>MONDAY</div><div class="day-title">Skopje</div><div class="day-type">Walking / Exploring</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li><a href="https://en.wikipedia.org/wiki/Old_Bazaar,_Skopje" target="_blank">Old Bazaar (&#268;ar&#353;ija)</a> &#8212; Ottoman lanes, copper shops, coffee</li>
+        <li><a href="https://en.wikipedia.org/wiki/Skopje_Fortress" target="_blank">Kale Fortress</a> &#8212; views over the Vardar</li>
+        <li>Stone Bridge and riverside</li>
+        <li><a href="https://en.wikipedia.org/wiki/Church_of_the_Holy_Saviour,_Skopje" target="_blank">Church of St. Spas</a> <em>(intricately carved iconostasis)</em></li>
+        <li>Skopje 2014 statuary &#8212; with appropriate skepticism</li>
+        <li>Long caf&#233; afternoon with the book</li>
+      </ul>
+      <div class="weather-widget" id="wx-skopje"><span class="weather-loading">Loading current conditions&#8230;</span></div>
+    </div>
+  </div>
+
+  <div class="day-block" id="day-kosovo">
+    <div class="day-header" onclick="toggleDay('day-kosovo',42.6014,21.1914,'Gra&#269;anica, Kosovo')">
+      <div class="day-date">SEP 23<br>TUESDAY</div><div class="day-title">Gra&#269;anica, Kosovo</div><div class="day-type">Excursion &middot; Return to Skopje</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li>Drive north from Skopje into Kosovo <em>(~1.5 hrs to Pristina)</em></li>
+        <li><a href="https://en.wikipedia.org/wiki/Gra%C4%8Danica_monastery" target="_blank">Gra&#269;anica Monastery</a> <em>(14th c. Serbian Orthodox &#8212; extraordinary frescoes; West&#8217;s Balkans made visible)</em></li>
+        <li>Pristina &#8212; Mother Teresa Square, caf&#233;, afternoon wander</li>
+        <li>Return to Skopje by evening</li>
+        <li><em>Bring passport. Kosovo uses EUR. West passed through this landscape in 1937.</em></li>
+      </ul>
+      <div class="weather-widget" id="wx-kosovo"><span class="weather-loading">Loading current conditions&#8230;</span></div>
+    </div>
+  </div>
+
+  <div class="day-block" id="day-drive">
+    <div class="day-header" onclick="toggleDay('day-drive',41.7151,21.7752,'Veles (en route)')">
+      <div class="day-date">SEP 24<br>WEDNESDAY</div><div class="day-title">Drive to Bitola</div><div class="day-type">Transit &middot; ~2.5 hrs</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li>Check out of Skopje</li>
+        <li>Drive south via Veles</li>
+        <li>Optional stop: <a href="https://en.wikipedia.org/wiki/Stobi" target="_blank">Stobi</a> <em>(Roman ruins, en route)</em></li>
+        <li>Check in Bitola by afternoon</li>
+        <li>First evening on &#352;irok Sokak</li>
+      </ul>
+      <div class="weather-widget" id="wx-drive"><span class="weather-loading">Loading current conditions&#8230;</span></div>
+    </div>
+  </div>
+
+  <div class="day-block" id="day-bitola">
+    <div class="day-header" onclick="toggleDay('day-bitola',41.0297,21.3294,'Bitola')">
+      <div class="day-date">SEP 24&#8211;26<br>2 NIGHTS</div><div class="day-title">Bitola</div><div class="day-type">2 nights</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li><a href="https://en.wikipedia.org/wiki/%C5%A0irok_Sokak" target="_blank">&#352;irok Sokak</a> &#8212; caf&#233; culture, consular row, the boulevard life West describes</li>
+        <li><a href="https://en.wikipedia.org/wiki/Heraclea_Lyncestis" target="_blank">Heraclea Lyncestis</a> <em>(Roman / Byzantine ruins just south; floor mosaics)</em></li>
+        <li>Clock Tower and old bazaar quarter</li>
+        <li>Church of Sveti Dimitrija</li>
+        <li><a href="https://en.wikipedia.org/wiki/Pelister_National_Park" target="_blank">Pelister National Park</a> <em>(day hike, if energy allows)</em></li>
+        <li>Sit with West&#8217;s portrait of interwar Bitola over coffee</li>
+      </ul>
+      <div class="weather-widget" id="wx-bitola"><span class="weather-loading">Loading current conditions&#8230;</span></div>
+    </div>
+  </div>
+
+  <div class="day-block" id="day-treskavec">
+    <div class="day-header" onclick="toggleDay('day-treskavec',41.3317,21.5583,'Treskavec / Prilep')">
+      <div class="day-date">SEP 26<br>SATURDAY</div><div class="day-title">Bitola &#8594; Ohrid via Treskavec</div><div class="day-type">Transit &middot; via Prilep</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li>Check out of Bitola</li>
+        <li><a href="https://en.wikipedia.org/wiki/Treskavec_Monastery" target="_blank">Treskavec Monastery</a> <em>(dramatic hilltop above Prilep &#8212; short hike or rough track; worth it)</em></li>
+        <li>Prilep old town, briefly</li>
+        <li>Continue west to Ohrid ~2 hrs</li>
+        <li>Check in by late afternoon &#8212; first look at the lake</li>
+      </ul>
+      <div class="weather-widget" id="wx-treskavec"><span class="weather-loading">Loading current conditions&#8230;</span></div>
+    </div>
+  </div>
+
+  <div class="day-block" id="day-ohrid">
+    <div class="day-header" onclick="toggleDay('day-ohrid',41.1172,20.8016,'Ohrid')">
+      <div class="day-date">SEP 26&#8211;29<br>3 NIGHTS</div><div class="day-title">Ohrid</div><div class="day-type">3 nights &middot; 2 full days</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li>Old town &#8212; medieval lanes climbing from the lake</li>
+        <li><a href="https://en.wikipedia.org/wiki/Church_of_Saint_John_at_Kaneo" target="_blank">Church of St. John at Kaneo</a> <em>(the iconic lakeside church; early morning)</em></li>
+        <li><a href="https://en.wikipedia.org/wiki/Church_of_Saints_Clement_and_Panteleimon" target="_blank">Church of St. Clement at Pla&#353;nik</a> <em>(remarkable frescoes; ancient foundations dating to the 5th century)</em></li>
+        <li><a href="https://en.wikipedia.org/wiki/Samuel%27s_Fortress" target="_blank">Samuel&#8217;s Fortress</a> &#8212; views over the lake</li>
+        <li>Icon Gallery and National Museum</li>
+        <li><a href="https://en.wikipedia.org/wiki/Vev%C4%8Dani" target="_blank">Ve&#269;ani village</a> <em>(half-day; natural springs, stone houses, deeply traditional)</em></li>
+        <li>Long walks along the shore; lakeside caf&#233;s; boat trip if the mood strikes</li>
+      </ul>
+      <div class="weather-widget" id="wx-ohrid"><span class="weather-loading">Loading current conditions&#8230;</span></div>
+    </div>
+  </div>
+
+  <div class="day-block" id="day-mavrovo">
+    <div class="day-header" onclick="toggleDay('day-mavrovo',41.6072,20.7356,'Mavrovo')">
+      <div class="day-date">SEP 29&#8211;OCT 1<br>2 NIGHTS</div><div class="day-title">Mavrovo / Bigorski</div><div class="day-type">2 nights &middot; Highland</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li>Drive north from Ohrid into the Mavrovo highlands <em>(~1.5 hrs)</em></li>
+        <li><a href="https://en.wikipedia.org/wiki/Bigorski_Monastery" target="_blank">Monastery of St. John Bigorski</a> <em>(18th-c. iconostasis &#8212; one of the finest in the Balkans)</em></li>
+        <li><a href="https://en.wikipedia.org/wiki/Gali%C4%8Dnik" target="_blank">Galicnik village</a> <em>(above Mavrovo; stone village, extraordinary views, early autumn)</em></li>
+        <li><a href="https://en.wikipedia.org/wiki/Mavrovo_National_Park" target="_blank">Mavrovo National Park</a> walks</li>
+        <li>Autumn colours in the highlands &#8212; peak season</li>
+        <li>The most remote and quiet leg of the trip</li>
+      </ul>
+      <div class="weather-widget" id="wx-mavrovo"><span class="weather-loading">Loading current conditions&#8230;</span></div>
+    </div>
+  </div>
+
+  <div class="day-block" id="day-return">
+    <div class="day-header" onclick="toggleDay('day-return',41.9973,21.4280,'Skopje')">
+      <div class="day-date">OCT 1&#8211;2<br>THURSDAY</div><div class="day-title">Return to Skopje</div><div class="day-type">Return &middot; Departure</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li>Drive back to Skopje ~2 hrs</li>
+        <li>Final afternoon &#8212; anything missed, last caf&#233;, last walk</li>
+        <li>Return car to Europcar at airport</li>
+        <li>Depart Skopje &#8594; Vienna &#8594; Boston <em>(Austrian Airlines)</em></li>
+      </ul>
+      <div class="weather-widget" id="wx-return"><span class="weather-loading">Loading current conditions&#8230;</span></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ROUTE MAP -->
+<div id="panel-map" class="panel">
+<div class="container">
+  <div class="map-section-label">Regional Context</div>
+  <div class="map-panel-inner"><div id="leaflet-map-regional"></div></div>
+  <div class="map-section-label">Travel Route</div>
+  <div class="map-panel-inner"><div id="leaflet-map-detail"></div></div>
+  <div class="map-legend">
+    <div class="map-legend-title">Route Stops</div>
+    <div class="map-legend-grid">
+      <div><span class="leg-num">&#9312; Skopje</span><span class="leg-dates">Sep 21&#8211;23 &middot; Arrive, explore, Gra&#269;anica excursion</span></div>
+      <div><span class="leg-num" style="color:var(--amber)">&#8599; Gra&#269;anica, Kosovo</span><span class="leg-dates">Sep 23 &middot; Monastery + Pristina</span></div>
+      <div><span class="leg-num">&#9313; Bitola</span><span class="leg-dates">Sep 24&#8211;26 &middot; 2 nights &middot; Heraclea, &#352;irok Sokak</span></div>
+      <div><span class="leg-num" style="color:var(--amber)">&#8599; Treskavec</span><span class="leg-dates">Sep 26 &middot; En route to Ohrid</span></div>
+      <div><span class="leg-num">&#9314; Ohrid</span><span class="leg-dates">Sep 26&#8211;29 &middot; 3 nights &middot; Lake, old town, Ve&#269;ani</span></div>
+      <div><span class="leg-num">&#9315; Mavrovo / Bigorski</span><span class="leg-dates">Sep 29&#8211;Oct 1 &middot; 2 nights &middot; Highlands</span></div>
+      <div><span class="leg-num">&#9316; Skopje return</span><span class="leg-dates">Oct 1&#8211;2 &middot; Return car, depart for Vienna &#8594; Boston</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer>
+  <p class="footer-quote">&#8220;Here was the authentic voice of the Slav. These people hold that the way to make life better is to add good things to it, whereas in the West we hold that the way to make life better is to take bad things away from it.&#8221;</p>
+  <p class="footer-attr">Rebecca West &nbsp;&middot;&nbsp; <a href="https://www.amazon.com/Black-Lamb-Grey-Falcon-Journey/dp/0140188479" target="_blank">Black Lamb and Grey Falcon</a> &nbsp;&middot;&nbsp; North Macedonia 2026</p>
+</footer>
+
+<div class="toast" id="toast">Changes saved</div>
+
+<script>
+// TABS
+function showTab(name,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  btn.classList.add('active');
+  if(name==='map') setTimeout(initMaps,80);
+}
+
+// BOOKING CARDS
+function toggleCard(id){document.getElementById(id).classList.toggle('open')}
+function syncCardStatus(cardId,selectId){
+  var sel=document.getElementById(selectId),card=document.getElementById(cardId),val=sel.value;
+  card.className=card.className.replace(/\bstatus-\w+/g,'').trim();
+  if(val==='booked'||val==='confirmed') card.classList.add('status-booked');
+  else if(val==='pending') card.classList.add('status-pending');
+  var pill=card.querySelector('.status-pill');
+  if(pill){var labels={booked:'Booked',confirmed:'Confirmed',pending:'Pending',na:'N/A'};pill.textContent=labels[val]||val;pill.className='status-pill pill-'+val;}
+}
+
+// ITINERARY
+function toggleDay(id,lat,lng,loc){
+  var block=document.getElementById(id),wasOpen=block.classList.contains('open');
+  block.classList.toggle('open');
+  if(!wasOpen){
+    var wxId='wx-'+id.replace('day-',''),widget=document.getElementById(wxId);
+    if(widget&&!widget.dataset.loaded){widget.dataset.loaded='1';fetchWeather(lat,lng,loc,widget);}
+  }
+}
+
+// WEATHER
+var WX={0:['\u2600\uFE0F','Clear'],1:['\uD83C\uDF24','Mostly clear'],2:['\u26C5','Partly cloudy'],3:['\u2601\uFE0F','Overcast'],45:['\uD83C\uDF2B','Fog'],48:['\uD83C\uDF2B','Icy fog'],51:['\uD83C\uDF26','Drizzle'],53:['\uD83C\uDF26','Drizzle'],55:['\uD83C\uDF27','Heavy drizzle'],61:['\uD83C\uDF27','Light rain'],63:['\uD83C\uDF27','Rain'],65:['\uD83C\uDF27','Heavy rain'],71:['\uD83C\uDF28','Light snow'],73:['\u2744\uFE0F','Snow'],75:['\u2744\uFE0F','Heavy snow'],80:['\uD83C\uDF26','Showers'],81:['\uD83C\uDF27','Showers'],82:['\u26C8\uFE0F','Heavy showers'],85:['\uD83C\uDF28','Snow showers'],86:['\u2744\uFE0F','Snow showers'],95:['\u26C8\uFE0F','Thunderstorm'],96:['\u26C8\uFE0F','Thunderstorm'],99:['\u26C8\uFE0F','Thunderstorm']};
+async function fetchWeather(lat,lng,loc,widget){
+  try{
+    var r=await fetch('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lng+'&current=temperature_2m,weather_code,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph');
+    var d=await r.json(),c=d.current,wx=WX[c.weather_code]||['\uD83C\uDF21','Unknown'];
+    widget.innerHTML='<span class="weather-label">Now &middot; '+loc+'</span><span class="weather-icon">'+wx[0]+'</span><span class="weather-temp">'+Math.round(c.temperature_2m)+'&deg;F</span><span class="weather-desc">'+wx[1]+'</span><span class="weather-wind">Wind '+Math.round(c.wind_speed_10m)+' mph</span>';
+  }catch(e){widget.innerHTML='<span class="weather-loading">Conditions unavailable</span>';}
+}
+
+// BUDGET
+var BUDGET_PIN='1937',budgetUnlocked=false;
+function toggleBudget(){
+  if(budgetUnlocked){var o=document.getElementById('budget-open');o.style.display=o.style.display==='block'?'none':'block';return;}
+  var p=document.getElementById('budget-pin');p.style.display=p.style.display==='block'?'none':'block';
+}
+function checkPin(){
+  var val=document.getElementById('pin-field').value;
+  if(val===BUDGET_PIN){budgetUnlocked=true;document.getElementById('budget-pin').style.display='none';document.getElementById('budget-open').style.display='block';document.getElementById('lock-glyph').textContent='\uD83D\uDD13';}
+  else{var m=document.getElementById('pin-msg');m.style.display='block';document.getElementById('pin-field').value='';setTimeout(function(){m.style.display='none';},2000);}
+}
+function lockBudget(){budgetUnlocked=false;document.getElementById('budget-open').style.display='none';document.getElementById('budget-pin').style.display='none';document.getElementById('pin-field').value='';document.getElementById('lock-glyph').textContent='\uD83D\uDD12';}
+function calcBudget(){
+  function v(id){return parseFloat(document.getElementById(id).value)||0;}
+  var flights=v('b-flights'),ins=v('b-insurance'),car=v('b-car'),hotels=v('b-hotels'),daily=v('b-daily'),misc=v('b-misc');
+  var spent=flights+ins,total=spent+car+hotels+daily+misc;
+  function fmt(n){return n>0?'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'$&#8212;';}
+  document.getElementById('b-spent').innerHTML=fmt(spent);document.getElementById('b-total').innerHTML=fmt(total);
+}
+
+// MAPS
+var mapsInited=false;
+function initMaps(){
+  if(mapsInited){
+    var r=window._mapReg,d=window._mapDet;
+    if(r) setTimeout(function(){r.invalidateSize();},60);
+    if(d) setTimeout(function(){d.invalidateSize();},60);
+    return;
+  }
+  mapsInited=true;
+  var tileUrl='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+  var tileOpts={attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',maxZoom:18};
+
+  // Regional map
+  var reg=L.map('leaflet-map-regional',{scrollWheelZoom:false});
+  window._mapReg=reg;
+  L.tileLayer(tileUrl,tileOpts).addTo(reg);
+  var mkd=[[42.37,20.46],[42.37,20.96],[42.19,21.56],[42.32,22.36],[41.86,23.05],[41.30,22.87],[40.86,22.43],[40.85,21.54],[41.10,20.46],[41.74,20.45],[42.37,20.46]];
+  L.polygon(mkd,{color:'#b8943a',weight:1.5,opacity:.7,fillColor:'#b8943a',fillOpacity:.1}).addTo(reg);
+  var ri=L.divIcon({className:'',html:'<div style="background:#b8943a;color:white;border:2px solid white;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.3)">&#9733;</div>',iconSize:[22,22],iconAnchor:[11,11]});
+  L.marker([41.9973,21.4280],{icon:ri}).addTo(reg).bindPopup('<strong style="font-family:Georgia,serif">North Macedonia</strong><br><span style="font-size:11px;color:#6b6358">September &ndash; October 2026</span>');
+  reg.setView([41.5,21.4],7);
+  setTimeout(function(){reg.invalidateSize();},120);
+
+  // Detail map
+  var det=L.map('leaflet-map-detail',{scrollWheelZoom:false});
+  window._mapDet=det;
+  L.tileLayer(tileUrl,tileOpts).addTo(det);
+
+  var stops=[
+    {lat:41.9973,lng:21.4280,num:'1',label:'Skopje',dates:'Sep 21&ndash;23',desc:'Arrive &middot; Explore &middot; Gra&#269;anica excursion',main:true},
+    {lat:42.6014,lng:21.1914,num:'&#8599;',label:'Gra&#269;anica, Kosovo',dates:'Sep 23',desc:'Gra&#269;anica Monastery &middot; Pristina',main:false},
+    {lat:41.0297,lng:21.3294,num:'2',label:'Bitola',dates:'Sep 24&ndash;26',desc:'2 nights &middot; Heraclea &middot; &#352;irok Sokak',main:true},
+    {lat:41.3317,lng:21.5583,num:'&#8599;',label:'Treskavec Monastery',dates:'Sep 26',desc:'En route Bitola &rarr; Ohrid',main:false},
+    {lat:41.1172,lng:20.8016,num:'3',label:'Ohrid',dates:'Sep 26&ndash;29',desc:'3 nights &middot; Lake &middot; Old town &middot; Ve&#269;ani',main:true},
+    {lat:41.6072,lng:20.7356,num:'4',label:'Mavrovo / Bigorski',dates:'Sep 29&ndash;Oct 1',desc:'2 nights &middot; Bigorski &middot; Galicnik',main:true}
+  ];
+
+  var mainCoords=stops.filter(function(s){return s.main;}).map(function(s){return[s.lat,s.lng];});
+  mainCoords.push([41.9973,21.4280]);
+  L.polyline(mainCoords,{color:'#b8943a',weight:3,dashArray:'8,6',opacity:.9}).addTo(det);
+  L.polyline([[41.9973,21.4280],[42.6014,21.1914],[41.9973,21.4280]],{color:'#9a6b1a',weight:2,dashArray:'4,5',opacity:.7}).addTo(det);
+  L.polyline([[41.0297,21.3294],[41.3317,21.5583],[41.1172,20.8016]],{color:'#9a6b1a',weight:2,dashArray:'4,5',opacity:.7}).addTo(det);
+
+  stops.forEach(function(s){
+    var bg=s.main?'#b8943a':'#9a6b1a';
+    var dot='<div style="display:flex;align-items:center;gap:5px;pointer-events:none">'
+      +'<div style="background:'+bg+';border:2px solid white;border-radius:50%;width:10px;height:10px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,.45)"></div>'
+      +'<div style="background:rgba(255,255,255,0.93);color:#1c1a17;font-family:Georgia,serif;font-size:10.5px;padding:2px 6px;border-radius:2px;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.18);line-height:1.3">'
+      +'<span style="font-weight:700">'+s.label+'</span>'
+      +'<span style="color:#9a6b1a;font-size:9.5px;display:block">'+s.dates+'</span>'
+      +'</div>'
+      +'</div>';
+    var icon=L.divIcon({className:'',html:dot,iconSize:[0,0],iconAnchor:[5,5],popupAnchor:[60,0]});
+    L.marker([s.lat,s.lng],{icon:icon}).addTo(det).bindPopup('<strong style="font-family:Georgia,serif;font-size:14px">'+s.label+'</strong><br><em style="font-size:11px;color:#b8943a">'+s.dates+'</em><br><span style="font-size:11px;color:#6b6358">'+s.desc+'</span>');
+  });
+
+  det.fitBounds(L.latLngBounds(stops.map(function(s){return[s.lat,s.lng];})),{padding:[50,50]});
+  setTimeout(function(){det.invalidateSize();},120);
+}
+
+// SEARCH
+function doSearch(query){
+  document.querySelectorAll('mark.hl').forEach(function(m){m.outerHTML=m.textContent;});
+  var countEl=document.getElementById('search-count');
+  if(!query.trim()){countEl.textContent='';return;}
+  var re=new RegExp(query.trim().replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),count=0;
+  document.querySelectorAll('.activity-list li, .day-title, .bk-place').forEach(function(el){
+    var html=el.innerHTML,newHtml=html.replace(re,function(m){count++;return'<mark class="hl">'+m+'</mark>';});
+    if(newHtml!==html){el.innerHTML=newHtml;var b=el.closest('.day-block,.booking-card');if(b)b.classList.add('open');}
+  });
+  countEl.textContent=count>0?count+' match'+(count===1?'':'es'):'No matches';
+}
+
+// SAVE / LOAD
+function saveAll(){
+  var data={};
+  document.querySelectorAll('input[id],textarea[id],select[id]').forEach(function(el){
+    if(el.id&&el.id!=='search-input'&&el.id!=='pin-field') data[el.id]=el.value;
+  });
+  localStorage.setItem('mac2026',JSON.stringify(data));
+  showToast('Changes saved');
+}
+function loadAll(){
+  try{
+    var saved=localStorage.getItem('mac2026');
+    if(!saved) return;
+    var data=JSON.parse(saved);
+    Object.entries(data).forEach(function([id,val]){var el=document.getElementById(id);if(el)el.value=val;});
+    ['arrive','skopje','bitola','ohrid','mavrovo','return'].forEach(function(k){var sel=document.getElementById('status-'+k);if(sel)syncCardStatus('bc-'+k,'status-'+k);});
+    calcBudget();
+  }catch(e){}
+}
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2200);}
+loadAll();
+// Pre-fill confirmed booking amounts if not already saved
+(function(){
+  var saved=localStorage.getItem('mac2026');
+  if(!saved){
+    var fl=document.getElementById('b-flights');
+    var ins=document.getElementById('b-insurance');
+    var car=document.getElementById('b-car');
+    if(fl&&!fl.value) fl.value='832.23';
+    if(ins&&!ins.value) ins.value='39.76';
+    if(car&&!car.value) car.value='832.36';
+    calcBudget();
+  }
+})();
+</script>
+</body>
+</html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
