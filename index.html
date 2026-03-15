@@ -450,7 +450,7 @@ footer { background: var(--dark); border-top: 1px solid var(--mid); padding: 1.5
     <div class="booking-summary static">
       <div class="bk-dates">SEP 22</div>
       <div class="bk-place">Skopje</div>
-      <div class="bk-nights">Night 2</div>
+      <div class="bk-nights"></div>
       <div class="status-pill pill-pending">Pending</div>
     </div>
   </div>
@@ -633,10 +633,14 @@ footer { background: var(--dark); border-top: 1px solid var(--mid); padding: 1.5
         <tbody>
           <tr><td>Flights — both legs</td><td><span class="dot dot-green"></span>Booked</td><td style="text-align:right"><input type="number" id="b-flights" value="832.23" step="0.01" oninput="calcBudget()"></td></tr>
           <tr><td>Travel Insurance (Travel Guard)</td><td><span class="dot dot-green"></span>Booked</td><td style="text-align:right"><input type="number" id="b-insurance" value="39.76" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Ohrid — Lake View Studio (Airbnb)</td><td><span class="dot dot-green"></span>Paid</td><td style="text-align:right"><input type="number" id="b-hotel-ohrid" value="328.01" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Bitola — Brand New Apt (Airbnb)</td><td><span class="dot dot-amber"></span>Due Sep 15</td><td style="text-align:right"><input type="number" id="b-hotel-bitola" value="87.25" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Mavrovo / Bigorski — Guest Mansion</td><td><span class="dot dot-amber"></span>Booking.com</td><td style="text-align:right"><input type="number" id="b-hotel-bigorski" value="160.00" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Skopje return — The Address (Airbnb)</td><td><span class="dot dot-amber"></span>Due Sep 18</td><td style="text-align:right"><input type="number" id="b-hotel-skopje" value="103.11" step="0.01" oninput="calcBudget()"></td></tr>
           <tr><td>Car Rental (Europcar, incl. protection)</td><td><span class="dot dot-green"></span>Confirmed · Pay at Pickup</td><td style="text-align:right"><input type="number" id="b-car" value="832.36" step="0.01" oninput="calcBudget()"></td></tr>
-          <tr><td>Hotels (incl. EUR 50 deposit at Bigorski · cash)</td><td><span class="dot dot-amber"></span>Upcoming / Confirmed</td><td style="text-align:right"><input type="number" id="b-hotels" value="678.37" step="0.01" oninput="calcBudget()"></td></tr>
-          <tr><td>Daily (food, fuel, entry fees)</td><td><span class="dot dot-amber"></span>Estimated</td><td style="text-align:right"><input type="number" id="b-daily" placeholder="—" step="0.01" oninput="calcBudget()"></td></tr>
-          <tr><td>Miscellaneous buffer</td><td><span class="dot dot-amber"></span>Buffer</td><td style="text-align:right"><input type="number" id="b-misc" placeholder="—" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Cash to carry — MKD + EUR</td><td><span class="dot dot-amber"></span>Bring from home / ATM</td><td style="text-align:right"><input type="number" id="b-cash" value="500" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Daily — food, fuel, entry fees</td><td><span class="dot dot-amber"></span>Estimated</td><td style="text-align:right"><input type="number" id="b-daily" value="1200" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Buffer</td><td><span class="dot dot-amber"></span>Buffer</td><td style="text-align:right"><input type="number" id="b-misc" value="500" step="0.01" oninput="calcBudget()"></td></tr>
         </tbody>
       </table>
       <div class="budget-summary">
@@ -655,6 +659,11 @@ footer { background: var(--dark); border-top: 1px solid var(--mid); padding: 1.5
 <!-- ITINERARY (public) -->
 <div id="panel-itinerary" class="panel active">
 <div class="container">
+
+  <div style="background:white;border:1px solid var(--border);padding:0.9rem 1.1rem;margin-bottom:1.5rem;font-size:0.78rem;color:var(--muted);font-style:italic;line-height:1.7">
+    <strong style="font-style:normal;color:var(--text);font-family:'Source Code Pro',monospace;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;">Regional Context</strong><br>
+    Macedonia sits at the heart of the western Balkans — a small landlocked republic where Ottoman mosques, Byzantine frescoes, Roman ruins, and Slavic Orthodox monasteries occupy the same valleys and hillsides. This itinerary moves south then north, following the geography Rebecca West traced: Skopje and Kosovo, through the central plains to Bitola, west to Ohrid on its ancient lake, and up into the Mavrovo highlands.
+  </div>
 
   <div class="day-block" id="day-arrive">
     <div class="day-header" onclick="toggleDay('day-arrive')">
@@ -704,7 +713,7 @@ footer { background: var(--dark); border-top: 1px solid var(--mid); padding: 1.5
         <li><a href="https://en.wikipedia.org/wiki/Gra%C4%8Danica_monastery" target="_blank">Gračanica Monastery</a> <em>(14th c. Serbian Orthodox)</em></li>
         <li>Pristina — Mother Teresa Square</li>
         <li>Return to Skopje by evening</li>
-        <li><em>Bring passport. Kosovo uses EUR. West passed through this landscape in 1937.</em></li>
+        <li><em>Bring passport. Kosovo uses EUR.</em></li>
       </ul>
     </div>
   </div>
@@ -943,8 +952,8 @@ function syncCardStatus(cardId, selectId) {
 
 function calcBudget() {
   const v = id => parseFloat(document.getElementById(id).value) || 0;
-  const spent = v('b-flights') + v('b-insurance');
-  const total = spent + v('b-car') + v('b-hotels') + v('b-daily') + v('b-misc');
+  const spent = v('b-flights') + v('b-insurance') + v('b-hotel-ohrid');
+  const total = spent + v('b-hotel-bitola') + v('b-hotel-bigorski') + v('b-hotel-skopje') + v('b-car') + v('b-cash') + v('b-daily') + v('b-misc');
   const fmt = n => n > 0 ? '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) : '$—';
   document.getElementById('b-spent').textContent = fmt(spent);
   document.getElementById('b-total').textContent = fmt(total);
@@ -954,7 +963,7 @@ function calcBudget() {
 function saveBudget() {
   try {
     const d = {};
-    ['b-flights','b-insurance','b-car','b-hotels','b-daily','b-misc'].forEach(id => d[id] = document.getElementById(id).value);
+    ['b-flights','b-insurance','b-hotel-ohrid','b-hotel-bitola','b-hotel-bigorski','b-hotel-skopje','b-car','b-cash','b-daily','b-misc'].forEach(id => d[id] = document.getElementById(id).value);
     localStorage.setItem('mac26-budget', JSON.stringify(d));
   } catch(e) {}
 }
@@ -962,12 +971,13 @@ function saveBudget() {
 function loadBudget() {
   try {
     const saved = localStorage.getItem('mac26-budget');
-    if (!saved) return;
-    Object.entries(JSON.parse(saved)).forEach(([id, val]) => {
-      const el = document.getElementById(id); if (el) el.value = val;
-    });
-    calcBudget();
+    if (saved) {
+      Object.entries(JSON.parse(saved)).forEach(([id, val]) => {
+        const el = document.getElementById(id); if (el) el.value = val;
+      });
+    }
   } catch(e) {}
+  calcBudget();
 }
 
 function doSearch(val) {
