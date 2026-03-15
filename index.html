@@ -613,9 +613,9 @@ footer { background: var(--dark); border-top: 1px solid var(--mid); padding: 1.5
       <table class="budget-table">
         <thead><tr><th>Item</th><th>Status</th><th style="text-align:right">USD</th></tr></thead>
         <tbody>
-          <tr><td>Flights — both legs</td><td><span class="dot dot-green"></span>Booked / Charged</td><td style="text-align:right"><input type="number" id="b-flights" placeholder="—" step="0.01" oninput="calcBudget()"></td></tr>
-          <tr><td>Travel Insurance (Travel Guard)</td><td><span class="dot dot-green"></span>Booked / Charged</td><td style="text-align:right"><input type="number" id="b-insurance" placeholder="—" step="0.01" oninput="calcBudget()"></td></tr>
-          <tr><td>Car Rental (Europcar, incl. protection)</td><td><span class="dot dot-green"></span>Confirmed / At Pickup</td><td style="text-align:right"><input type="number" id="b-car" placeholder="—" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Flights — both legs</td><td><span class="dot dot-green"></span>Booked</td><td style="text-align:right"><input type="number" id="b-flights" value="832.23" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Travel Insurance (Travel Guard)</td><td><span class="dot dot-green"></span>Booked</td><td style="text-align:right"><input type="number" id="b-insurance" placeholder="—" step="0.01" oninput="calcBudget()"></td></tr>
+          <tr><td>Car Rental (Europcar, incl. protection)</td><td><span class="dot dot-green"></span>Confirmed · At Pickup</td><td style="text-align:right"><input type="number" id="b-car" value="832.36" step="0.01" oninput="calcBudget()"></td></tr>
           <tr><td>Hotels — estimated</td><td><span class="dot dot-amber"></span>Pending</td><td style="text-align:right"><input type="number" id="b-hotels" placeholder="—" step="0.01" oninput="calcBudget()"></td></tr>
           <tr><td>Daily (food, fuel, entry fees)</td><td><span class="dot dot-amber"></span>Estimated</td><td style="text-align:right"><input type="number" id="b-daily" placeholder="—" step="0.01" oninput="calcBudget()"></td></tr>
           <tr><td>Miscellaneous buffer</td><td><span class="dot dot-amber"></span>Buffer</td><td style="text-align:right"><input type="number" id="b-misc" placeholder="—" step="0.01" oninput="calcBudget()"></td></tr>
