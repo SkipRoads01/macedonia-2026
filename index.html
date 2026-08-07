@@ -966,8 +966,8 @@ footer {
           </tr>
           <tr>
             <td>Skopje arrival — Airbnb (Sep 21–24)</td>
-            <td><span class="dot dot-amber"></span>Due Sep 12</td>
-            <td style="text-align:right"><input type="number" id="b-hotel-skopje-arrive" value="226.05" step="0.01" oninput="calcBudget()"></td>
+            <td><span class="dot dot-amber"></span>Balance $226.05 · due Sep 12</td>
+            <td style="text-align:right"><input type="number" id="b-hotel-skopje-arrive" value="241.05" step="0.01" oninput="calcBudget()"></td>
           </tr>
           <tr>
             <td>Bitola — Brand New Apt (Airbnb, Sep 24–26)</td>
@@ -1314,10 +1314,13 @@ function lockBudget() {
 
 function calcBudget() {
   const v = id => (document.getElementById(id) ? parseFloat(document.getElementById(id).value) : 0) || 0;
-  // Ohrid Airbnb: deposit paid, $133.62 balance still owed (due Sep 11) — count only the deposit as spent.
-  const ohridBalanceDue = 133.62;
-  // Spent / Charged = amounts already paid (flights, insurance, Ohrid deposit)
-  const spent = v('b-flights') + v('b-insurance') + (v('b-hotel-ohrid') - ohridBalanceDue);
+  // Partially-paid Airbnbs: deposit paid, balance still owed — count only the paid deposit as spent.
+  const ohridBalanceDue = 133.62;        // Ohrid, due Sep 11
+  const skopjeArriveBalanceDue = 226.05; // Skopje arrival, due Sep 12
+  // Spent / Charged = amounts already paid (flights, insurance, paid deposits)
+  const spent = v('b-flights') + v('b-insurance')
+              + (v('b-hotel-ohrid') - ohridBalanceDue)
+              + (v('b-hotel-skopje-arrive') - skopjeArriveBalanceDue);
   const total = v('b-flights') + v('b-insurance') + v('b-hotel-skopje-arrive') + v('b-hotel-ohrid')
               + v('b-hotel-bitola') + v('b-hotel-bigorski') + v('b-hotel-skopje')
               + v('b-car') + v('b-cash') + v('b-daily') + v('b-misc');
