@@ -957,32 +957,52 @@ footer {
           <tr>
             <td>Flights — both legs</td>
             <td><span class="dot dot-green"></span>Booked / Charged</td>
-            <td style="text-align:right"><input type="number" id="b-flights" placeholder="—" step="0.01" oninput="calcBudget()"></td>
+            <td style="text-align:right"><input type="number" id="b-flights" value="832.23" step="0.01" oninput="calcBudget()"></td>
           </tr>
           <tr>
             <td>Travel Insurance (Travel Guard)</td>
             <td><span class="dot dot-green"></span>Booked / Charged</td>
-            <td style="text-align:right"><input type="number" id="b-insurance" placeholder="—" step="0.01" oninput="calcBudget()"></td>
+            <td style="text-align:right"><input type="number" id="b-insurance" value="39.76" step="0.01" oninput="calcBudget()"></td>
+          </tr>
+          <tr>
+            <td>Ohrid — Lake View Studio (Airbnb)</td>
+            <td><span class="dot dot-green"></span>Paid</td>
+            <td style="text-align:right"><input type="number" id="b-hotel-ohrid" value="328.01" step="0.01" oninput="calcBudget()"></td>
+          </tr>
+          <tr>
+            <td>Bitola — Brand New Apt (Airbnb)</td>
+            <td><span class="dot dot-amber"></span>Due Sep 15</td>
+            <td style="text-align:right"><input type="number" id="b-hotel-bitola" value="87.25" step="0.01" oninput="calcBudget()"></td>
+          </tr>
+          <tr>
+            <td>Mavrovo / Bigorski — Guest Mansion</td>
+            <td><span class="dot dot-amber"></span>Due Sep 29</td>
+            <td style="text-align:right"><input type="number" id="b-hotel-bigorski" value="160.00" step="0.01" oninput="calcBudget()"></td>
+          </tr>
+          <tr>
+            <td>Skopje return — The Address (Airbnb)</td>
+            <td><span class="dot dot-amber"></span>Due Sep 18</td>
+            <td style="text-align:right"><input type="number" id="b-hotel-skopje" value="103.11" step="0.01" oninput="calcBudget()"></td>
           </tr>
           <tr>
             <td>Car Rental (Europcar, incl. protection)</td>
-            <td><span class="dot dot-green"></span>Confirmed / At Pickup</td>
-            <td style="text-align:right"><input type="number" id="b-car" placeholder="—" step="0.01" oninput="calcBudget()"></td>
+            <td><span class="dot dot-green"></span>Confirmed · Pay at Pickup</td>
+            <td style="text-align:right"><input type="number" id="b-car" value="832.36" step="0.01" oninput="calcBudget()"></td>
           </tr>
           <tr>
-            <td>Hotels — estimated</td>
-            <td><span class="dot dot-amber"></span>Pending</td>
-            <td style="text-align:right"><input type="number" id="b-hotels" placeholder="—" step="0.01" oninput="calcBudget()"></td>
+            <td>Cash to carry — MKD + EUR</td>
+            <td><span class="dot dot-amber"></span>Bring from home / ATM</td>
+            <td style="text-align:right"><input type="number" id="b-cash" value="500" step="0.01" oninput="calcBudget()"></td>
           </tr>
           <tr>
-            <td>Daily (food, fuel, entry fees)</td>
+            <td>Daily — food, fuel, entry fees</td>
             <td><span class="dot dot-amber"></span>Estimated</td>
-            <td style="text-align:right"><input type="number" id="b-daily" placeholder="—" step="0.01" oninput="calcBudget()"></td>
+            <td style="text-align:right"><input type="number" id="b-daily" value="1200" step="0.01" oninput="calcBudget()"></td>
           </tr>
           <tr>
-            <td>Miscellaneous buffer</td>
+            <td>Buffer</td>
             <td><span class="dot dot-amber"></span>Buffer</td>
-            <td style="text-align:right"><input type="number" id="b-misc" placeholder="—" step="0.01" oninput="calcBudget()"></td>
+            <td style="text-align:right"><input type="number" id="b-misc" value="500" step="0.01" oninput="calcBudget()"></td>
           </tr>
         </tbody>
       </table>
@@ -1288,11 +1308,11 @@ function lockBudget() {
 }
 
 function calcBudget() {
-  const v = id => parseFloat(document.getElementById(id).value) || 0;
-  const flights = v('b-flights'), insurance = v('b-insurance'), car = v('b-car');
-  const hotels = v('b-hotels'), daily = v('b-daily'), misc = v('b-misc');
-  const spent = flights + insurance;
-  const total = spent + car + hotels + daily + misc;
+  const v = id => (document.getElementById(id) ? parseFloat(document.getElementById(id).value) : 0) || 0;
+  // Spent / Charged = things already paid (green dots)
+  const spent = v('b-flights') + v('b-insurance') + v('b-hotel-ohrid');
+  const total = spent + v('b-hotel-bitola') + v('b-hotel-bigorski') + v('b-hotel-skopje')
+              + v('b-car') + v('b-cash') + v('b-daily') + v('b-misc');
   const fmt = n => n > 0 ? '$' + n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}) : '$—';
   document.getElementById('b-spent').textContent = fmt(spent);
   document.getElementById('b-total').textContent = fmt(total);
