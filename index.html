@@ -77,21 +77,6 @@ body {
   text-transform: uppercase;
   color: var(--gold);
 }
-.masthead-actions { display: flex; gap: 0.75rem; }
-.btn-action {
-  font-family: 'Source Code Pro', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  background: transparent;
-  border: 1px solid var(--mid);
-  color: var(--warm);
-  padding: 0.4rem 0.9rem;
-  cursor: pointer;
-  transition: all 0.15s;
-  border-radius: 2px;
-}
-.btn-action:hover { border-color: var(--gold); color: var(--gold); }
 .masthead-main {
   padding: 2.5rem 2rem 2rem;
   text-align: center;
@@ -600,22 +585,6 @@ mark.hl { background: #f0d870; color: var(--text); border-radius: 2px; padding: 
   padding: 0.5rem 0.8rem;
   margin: 1rem 0 1.1rem 68px;
 }
-.flight-foot {
-  border-top: 1px solid var(--cream);
-  padding: 0.85rem 1.2rem 1.1rem;
-  font-size: 0.86rem;
-  color: var(--muted);
-  line-height: 1.7;
-}
-.flight-foot .fnote-label {
-  font-family: 'Source Code Pro', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--muted);
-  display: block;
-  margin-bottom: 0.25rem;
-}
 
 @media (max-width: 560px) {
   .flight-leg { grid-template-columns: 1fr; gap: 0.35rem; }
@@ -1039,10 +1008,6 @@ footer {
 <header class="masthead">
   <div class="masthead-top">
     <div class="masthead-kicker">Travel Journal &nbsp;·&nbsp; Solo Journey</div>
-    <div class="masthead-actions">
-      <button class="btn-action" onclick="window.print()">Print / Save PDF</button>
-      <button class="btn-action" onclick="saveAll()">Save Changes</button>
-    </div>
     <div class="fx-key" id="fx-key" data-state="loading" onclick="fxToggle(event)"
          title="Exchange rate — click for a conversion table">
       <div class="fx-head">
@@ -1306,7 +1271,7 @@ footer {
   <div class="booking-card status-booked" id="bc-flights-link">
     <div class="booking-summary" onclick="goToFlights()">
       <div class="bk-dates">SEP 20<br>OCT 2</div>
-      <div class="bk-place">Flights — both legs</div>
+      <div class="bk-place">Flights</div>
       <div class="bk-nights">Swiss / Edelweiss · Austrian</div>
       <div class="status-pill pill-booked">Booked</div>
     </div>
@@ -1356,7 +1321,7 @@ footer {
         </thead>
         <tbody>
           <tr>
-            <td>Flights — both legs</td>
+            <td>Flights</td>
             <td><span class="dot dot-green"></span>Booked / Charged</td>
             <td style="text-align:right"><input type="number" id="b-flights" value="832.23" step="0.01" oninput="calcBudget()"></td>
           </tr>
@@ -1498,13 +1463,6 @@ footer {
       </div>
 
     </div>
-
-    <div class="flight-foot">
-      <span class="fnote-label">Notes</span>
-      Extra legroom booked on both legs. Travel Guard insurance included.
-      Europcar desk pickup follows arrival at SKP the same evening.
-      <div class="notes-field"><label>Your notes</label><textarea id="flight-notes-out" placeholder="Seat numbers, booking reference, bag drop…"></textarea></div>
-    </div>
   </div>
 
   <div class="section-label">Return</div>
@@ -1568,22 +1526,6 @@ footer {
       </div>
 
     </div>
-
-    <div class="flight-foot">
-      <span class="fnote-label">Notes</span>
-      Onboard catering VIE–BOS: meal plus snack / brunch. Extra legroom booked.
-      <strong style="color:var(--amber);font-weight:400">The 04:25 departure means an airport arrival around 02:25 on Oct 2</strong>
-      — plan the Europcar return and the last night in Skopje around a middle-of-the-night start.
-      <div class="notes-field"><label>Your notes</label><textarea id="flight-notes-ret" placeholder="Seat numbers, booking reference, car return time…"></textarea></div>
-    </div>
-  </div>
-
-  <div class="section-label">Reference</div>
-  <div style="background:white;border:1px solid var(--border);padding:0.9rem 1.1rem;font-size:0.86rem;color:var(--muted);line-height:1.8">
-    All times are local to each airport. Skopje, Vienna and Zurich are on
-    Central European Summer Time (UTC+2) for the whole trip; Boston is on
-    Eastern Daylight Time (UTC−4). Clocks do not change in either place
-    between Sep 20 and Oct 2, 2026.
   </div>
 
 </div>
