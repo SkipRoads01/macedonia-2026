@@ -2029,12 +2029,17 @@ function initMap() {
 
   stops.forEach(s => {
     const sz = s.main ? 30 : 24;
+    const stem = 7;                       // the badge sits above the point on a short stem, so it
+    const col = s.main ? '#b8943a' : '#9a6b1a';   // never covers the town name printed on the tile
     const icon = L.divIcon({
       className: '',
-      html: `<div style="background:${s.main?'#b8943a':'#9a6b1a'};color:white;border:2.5px solid white;border-radius:50%;width:${sz}px;height:${sz}px;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:${s.main?12:10}px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.35)">${s.num}</div>`,
-      iconSize: [sz, sz],
-      iconAnchor: [sz/2, sz/2],
-      popupAnchor: [0, -(sz/2+4)]
+      html: `<div style="position:relative;width:${sz}px;height:${sz + stem}px">`
+          +   `<div style="background:${col};color:white;border:2.5px solid white;border-radius:50%;width:${sz}px;height:${sz}px;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:${s.main?12:10}px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.35)">${s.num}</div>`
+          +   `<div style="position:absolute;left:50%;bottom:0;margin-left:-3.5px;width:0;height:0;border-left:3.5px solid transparent;border-right:3.5px solid transparent;border-top:${stem}px solid ${col}"></div>`
+          + `</div>`,
+      iconSize: [sz, sz + stem],
+      iconAnchor: [sz/2, sz + stem],
+      popupAnchor: [0, -(sz + stem + 2)]
     });
     L.marker([s.lat, s.lng], { icon })
       .addTo(leafletMap)
