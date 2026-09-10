@@ -343,6 +343,142 @@ mark.hl { background: #f0d870; color: var(--text); border-radius: 2px; padding: 
 .field textarea { min-height: 60px; resize: vertical; line-height: 1.5; }
 .field select { cursor: pointer; }
 
+/* ═══ EXCHANGE RATE KEY ═══ */
+.fx-key {
+  position: relative;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--mid);
+  border-radius: 3px;
+  padding: 0.5rem 0.8rem;
+  min-width: 190px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  user-select: none;
+}
+.fx-key:hover { border-color: var(--gold); }
+.fx-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+}
+.fx-title {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.fx-status {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm);
+  white-space: nowrap;
+}
+.fx-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--warm);
+  flex: none;
+}
+.fx-key[data-state="live"]     .fx-dot { background: #5c9b6f; box-shadow: 0 0 5px #5c9b6f; }
+.fx-key[data-state="cached"]   .fx-dot { background: var(--gold-light); }
+.fx-key[data-state="baseline"] .fx-dot { background: var(--warm); }
+.fx-key[data-state="loading"]  .fx-dot { background: var(--mid); }
+
+.fx-rate {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  color: var(--cream);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  line-height: 1.25;
+}
+.fx-rate .fx-unit {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.58rem;
+  color: var(--warm);
+  letter-spacing: 0.08em;
+}
+.fx-sub {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.06em;
+  color: var(--warm);
+  margin-top: 0.1rem;
+}
+.fx-hint {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--warm);
+  opacity: 0.75;
+  margin-top: 0.4rem;
+}
+.fx-key:hover .fx-hint { opacity: 1; color: var(--gold); }
+.fx-key.open .fx-hint { visibility: hidden; }
+
+.fx-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 300;
+  background: var(--black);
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  padding: 0.8rem 0.9rem;
+  min-width: 230px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  cursor: default;
+}
+.fx-key.open .fx-panel { display: block; }
+.fx-panel-title {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--mid);
+}
+.fx-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.62rem;
+  color: var(--cream);
+  padding: 0.2rem 0;
+}
+.fx-row span:last-child { color: var(--gold-light); }
+.fx-note {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.48rem;
+  line-height: 1.7;
+  color: var(--warm);
+  margin-top: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--mid);
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 620px) {
+  .masthead-top { justify-content: center; }
+  .fx-key { min-width: 0; flex: 1 1 100%; order: 3; }
+  .fx-panel { left: 0; right: 0; min-width: 0; }
+}
+@media print { .fx-key { display: none; } }
+
 /* ═══ FLIGHTS ═══ */
 .flight-journey {
   background: white;
@@ -929,6 +1065,23 @@ footer {
     <div class="masthead-actions">
       <button class="btn-action" onclick="window.print()">Print / Save PDF</button>
       <button class="btn-action" onclick="saveAll()">Save Changes</button>
+    </div>
+    <div class="fx-key" id="fx-key" data-state="loading" onclick="fxToggle(event)"
+         title="Exchange rate — click for a conversion table">
+      <div class="fx-head">
+        <span class="fx-title">Denar</span>
+        <span class="fx-status"><i class="fx-dot"></i><span id="fx-when">Checking</span></span>
+      </div>
+      <div class="fx-rate"><span class="fx-unit">$1 =</span><span id="fx-main">—</span><span class="fx-unit">den</span></div>
+      <div class="fx-sub" id="fx-sub"></div>
+      <div class="fx-hint">Click for conversions</div>
+      <div class="fx-panel">
+        <div class="fx-panel-title">Conversions</div>
+        <div id="fx-rows"></div>
+        <div class="fx-note">Mid-market reference rate. ATMs, bureaux and card
+        payments settle a little worse, so treat this as the yardstick rather
+        than the price you get.</div>
+      </div>
     </div>
   </div>
   <div class="masthead-main">
@@ -2591,6 +2744,76 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2200);
 }
+
+// ── EXCHANGE RATE KEY ──
+// Live rates when there is a connection; otherwise the last rate this browser
+// saw, and failing that the baseline below, which was current when the page was
+// built. The key always shows which of the three it is displaying.
+const FX_BASELINE = { mkd: 52.9848, eur: 0.859582, at: '2026-09-10T00:02:31Z' };
+const FX_URL = 'https://open.er-api.com/v6/latest/USD';
+const FX_STORE = 'mac2026-fx';
+
+function fxFormatDate(iso) {
+  const d = new Date(iso);
+  if (isNaN(d)) return '—';
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+}
+
+function fxRender(rates, state) {
+  const key = document.getElementById('fx-key');
+  if (!key) return;
+  const mkd = rates.mkd, perEur = rates.eur ? mkd / rates.eur : null;
+  key.dataset.state = state;
+  document.getElementById('fx-main').textContent = mkd.toFixed(1);
+  document.getElementById('fx-sub').textContent =
+    perEur ? '€1 = ' + perEur.toFixed(1) + ' den' : '';
+  document.getElementById('fx-when').textContent =
+    state === 'live' ? 'Live' :
+    state === 'cached' ? 'Saved ' + fxFormatDate(rates.at) :
+    state === 'loading' ? 'Checking' : 'Offline ' + fxFormatDate(rates.at);
+  // conversion ladder, denar -> dollars
+  const rows = [100, 500, 1000, 2000, 5000].map(den =>
+    `<div class="fx-row"><span>${den.toLocaleString('en-US')} den</span><span>$${(den / mkd).toFixed(2)}</span></div>`
+  ).join('');
+  document.getElementById('fx-rows').innerHTML =
+    `<div class="fx-row"><span>$1</span><span>${mkd.toFixed(2)} den</span></div>` +
+    (perEur ? `<div class="fx-row"><span>€1</span><span>${perEur.toFixed(2)} den</span></div>` : '') +
+    rows;
+}
+
+function fxToggle(e) {
+  if (e.target.closest('.fx-panel')) return;
+  document.getElementById('fx-key').classList.toggle('open');
+}
+
+function fxLoad() {
+  let shown = null;
+  try {
+    const saved = JSON.parse(localStorage.getItem(FX_STORE) || 'null');
+    if (saved && saved.mkd) { fxRender(saved, 'cached'); shown = saved; }
+  } catch (e) {}
+  if (!shown) fxRender(FX_BASELINE, 'baseline');
+
+  // Try for something fresher. Any failure just leaves what is already showing.
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 6000);
+  fetch(FX_URL, { signal: ctrl.signal })
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(d => {
+      if (!d || d.result !== 'success' || !d.rates || !d.rates.MKD) return;
+      const rates = { mkd: d.rates.MKD, eur: d.rates.EUR, at: new Date().toISOString() };
+      fxRender(rates, 'live');
+      try { localStorage.setItem(FX_STORE, JSON.stringify(rates)); } catch (e) {}
+    })
+    .catch(() => {})
+    .finally(() => clearTimeout(timer));
+}
+
+document.addEventListener('click', e => {
+  const key = document.getElementById('fx-key');
+  if (key && !key.contains(e.target)) key.classList.remove('open');
+});
+fxLoad();
 
 loadAll();
 </script>
