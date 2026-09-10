@@ -1889,11 +1889,13 @@ function showTab(name, btn) {
   if (name === 'map') setTimeout(initMap, 80);
 }
 
+// The Flights card in Booking Overview switches tabs and nothing else, so it
+// behaves exactly like pressing the Flights tab. It used to animate the page
+// back to the top, which read as a glitch rather than as navigation.
 function goToFlights() {
   const btn = Array.from(document.querySelectorAll('.tab-btn'))
     .find(b => b.getAttribute('onclick').includes("'flights'"));
   showTab('flights', btn);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── BOOKING CARDS ──
