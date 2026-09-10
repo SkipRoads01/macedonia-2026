@@ -185,6 +185,18 @@ mark.hl { background: #f0d870; color: var(--text); border-radius: 2px; padding: 
 .tab-btn:hover { color: var(--cream); }
 .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
 
+/* Four tabs no longer fit on a phone — tighten them rather than overflow the page */
+@media (max-width: 620px) {
+  .tab-bar { justify-content: space-between; }
+  .tab-btn {
+    padding: 0.9rem 0.4rem;
+    letter-spacing: 0.1em;
+    font-size: 0.55rem;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
 /* ═══ PANELS ═══ */
 .panel { display: none; }
 .panel.active { display: block; }
@@ -306,6 +318,151 @@ mark.hl { background: #f0d870; color: var(--text); border-radius: 2px; padding: 
 }
 .field textarea { min-height: 60px; resize: vertical; line-height: 1.5; }
 .field select { cursor: pointer; }
+
+/* ═══ FLIGHTS ═══ */
+.flight-journey {
+  background: white;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  margin-bottom: 1.5rem;
+}
+.flight-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.2rem 0.9rem;
+  border-bottom: 1px solid var(--cream);
+}
+.flight-dir {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.flight-route {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+.flight-when {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-align: right;
+}
+.flight-when strong { color: var(--text); font-weight: 400; display: block; }
+
+.flight-body { padding: 1.2rem; }
+
+.flight-leg {
+  display: grid;
+  grid-template-columns: 68px 1fr;
+  gap: 1rem;
+}
+.leg-dur {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.58rem;
+  color: var(--muted);
+  text-align: right;
+  padding-top: 0.75rem;
+}
+.leg-line {
+  border-left: 1px solid var(--warm);
+  padding: 0.15rem 0 0.15rem 1.1rem;
+  position: relative;
+}
+.leg-line::before, .leg-line::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--warm);
+}
+.leg-line::before { top: 0; }
+.leg-line::after  { bottom: 0; }
+
+.leg-stop {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+.leg-stop + .stop-sub { margin-bottom: 0.9rem; }
+.stop-time {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1rem;
+  color: var(--text);
+}
+.stop-city {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+}
+.stop-sub {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.57rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.stop-day {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.leg-meta {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  padding: 0.55rem 0 0 1.1rem;
+  line-height: 1.75;
+}
+.leg-meta strong { color: var(--text); font-weight: 400; letter-spacing: 0.1em; }
+
+.flight-layover {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  padding: 0.5rem 0.8rem;
+  margin: 1rem 0 1.1rem 68px;
+}
+.flight-foot {
+  border-top: 1px solid var(--cream);
+  padding: 0.85rem 1.2rem 1.1rem;
+  font-size: 0.86rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.flight-foot .fnote-label {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+@media (max-width: 560px) {
+  .flight-leg { grid-template-columns: 1fr; gap: 0.35rem; }
+  .leg-dur { text-align: left; padding-top: 0; }
+  .flight-layover { margin-left: 0; }
+  .flight-when { text-align: left; }
+}
 
 /* ═══ ITINERARY ═══ */
 .day-block { border-bottom: 1px solid var(--border); }
@@ -675,6 +832,7 @@ footer {
 <!-- ═══ TABS ═══ -->
 <nav class="tab-bar">
   <button class="tab-btn active" onclick="showTab('booking', this)">Booking Overview</button>
+  <button class="tab-btn" onclick="showTab('flights', this)">Flights</button>
   <button class="tab-btn" onclick="showTab('itinerary', this)">Itinerary</button>
   <button class="tab-btn" onclick="showTab('map', this)">Route Map</button>
 </nav>
@@ -878,36 +1036,15 @@ footer {
     </div>
   </div>
 
-  <!-- FLIGHTS & CAR -->
-  <div class="section-label" style="margin-top:2rem">Flights &amp; Transport</div>
+  <!-- TRANSPORT -->
+  <div class="section-label" style="margin-top:2rem">Transport</div>
 
-  <div class="booking-card status-booked" id="bc-outbound">
-    <div class="booking-summary" onclick="toggleCard('bc-outbound')">
-      <div class="bk-dates">SEP 20</div>
-      <div class="bk-place">BOS → ZRH → SKP</div>
-      <div class="bk-nights">Swiss / Edelweiss</div>
+  <div class="booking-card status-booked" id="bc-flights-link">
+    <div class="booking-summary" onclick="goToFlights()">
+      <div class="bk-dates">SEP 20<br>OCT 2</div>
+      <div class="bk-place">Flights — both legs</div>
+      <div class="bk-nights">Swiss / Edelweiss · Austrian</div>
       <div class="status-pill pill-booked">Booked</div>
-    </div>
-    <div class="booking-detail">
-      <div style="font-size:0.88rem;color:var(--muted);line-height:1.75;margin-top:0.75rem">
-        LX053 &nbsp;·&nbsp; Swiss Air &nbsp;·&nbsp; BOS → ZRH &nbsp;·&nbsp; Dep Sep 20, 21:40 &nbsp;·&nbsp; Arr Sep 21, 10:55<br>
-        LX8418 &nbsp;·&nbsp; Edelweiss &nbsp;·&nbsp; ZRH → SKP &nbsp;·&nbsp; Dep Sep 21, 17:50 &nbsp;·&nbsp; Arr Sep 21, 19:55<br>
-        Extra legroom &nbsp;·&nbsp; Travel Guard insurance included
-      </div>
-    </div>
-  </div>
-
-  <div class="booking-card status-booked" id="bc-inbound">
-    <div class="booking-summary" onclick="toggleCard('bc-inbound')">
-      <div class="bk-dates">OCT 2</div>
-      <div class="bk-place">SKP → VIE → BOS</div>
-      <div class="bk-nights">Austrian Airlines</div>
-      <div class="status-pill pill-booked">Booked</div>
-    </div>
-    <div class="booking-detail">
-      <div style="font-size:0.88rem;color:var(--muted);line-height:1.75;margin-top:0.75rem">
-        Austrian Airlines &nbsp;·&nbsp; Extra legroom booked
-      </div>
     </div>
   </div>
 
@@ -1029,6 +1166,164 @@ footer {
 
 </div>
 </div><!-- /panel-booking -->
+
+<!-- ═══════════════════════════════════════
+     FLIGHTS
+════════════════════════════════════════ -->
+<div id="panel-flights" class="panel">
+<div class="container">
+
+  <div class="section-label">Outbound</div>
+
+  <div class="flight-journey">
+    <div class="flight-head">
+      <div>
+        <span class="flight-dir">Boston → Skopje</span>
+        <div class="flight-route">BOS &nbsp;→&nbsp; ZRH &nbsp;→&nbsp; SKP</div>
+      </div>
+      <div class="flight-when">
+        <strong>Sun 20 – Mon 21 Sep 2026</strong>
+        Total duration 16h 15m
+      </div>
+    </div>
+
+    <div class="flight-body">
+
+      <div class="flight-leg">
+        <div class="leg-dur">7h 15m</div>
+        <div>
+          <div class="leg-line">
+            <div class="leg-stop">
+              <span class="stop-time">21:40</span>
+              <span class="stop-city">Boston</span>
+              <span class="stop-day">Sun 20 Sep</span>
+            </div>
+            <div class="stop-sub">Edward L. Logan International (BOS)</div>
+            <div class="leg-stop">
+              <span class="stop-time">10:55</span>
+              <span class="stop-city">Zurich</span>
+              <span class="stop-day">Mon 21 Sep</span>
+            </div>
+            <div class="stop-sub">Zurich Airport (ZRH)</div>
+          </div>
+          <div class="leg-meta"><strong>LX 053</strong> &nbsp;·&nbsp; Swiss International Air Lines &nbsp;·&nbsp; Extra legroom</div>
+        </div>
+      </div>
+
+      <div class="flight-layover">Transfer at Zurich Airport &nbsp;·&nbsp; 6h 55m</div>
+
+      <div class="flight-leg">
+        <div class="leg-dur">2h 05m</div>
+        <div>
+          <div class="leg-line">
+            <div class="leg-stop">
+              <span class="stop-time">17:50</span>
+              <span class="stop-city">Zurich</span>
+              <span class="stop-day">Mon 21 Sep</span>
+            </div>
+            <div class="stop-sub">Zurich Airport (ZRH)</div>
+            <div class="leg-stop">
+              <span class="stop-time">19:55</span>
+              <span class="stop-city">Skopje</span>
+              <span class="stop-day">Mon 21 Sep</span>
+            </div>
+            <div class="stop-sub">Skopje International (SKP)</div>
+          </div>
+          <div class="leg-meta"><strong>LX 8418</strong> &nbsp;·&nbsp; operated by Edelweiss Air &nbsp;·&nbsp; Extra legroom</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="flight-foot">
+      <span class="fnote-label">Notes</span>
+      Extra legroom booked on both legs. Travel Guard insurance included.
+      Europcar desk pickup follows arrival at SKP the same evening.
+      <div class="notes-field"><label>Your notes</label><textarea id="flight-notes-out" placeholder="Seat numbers, booking reference, bag drop…"></textarea></div>
+    </div>
+  </div>
+
+  <div class="section-label">Return</div>
+
+  <div class="flight-journey">
+    <div class="flight-head">
+      <div>
+        <span class="flight-dir">Skopje → Boston</span>
+        <div class="flight-route">SKP &nbsp;→&nbsp; VIE &nbsp;→&nbsp; BOS</div>
+      </div>
+      <div class="flight-when">
+        <strong>Fri 2 Oct 2026</strong>
+        Total duration 15h 25m
+      </div>
+    </div>
+
+    <div class="flight-body">
+
+      <div class="flight-leg">
+        <div class="leg-dur">1h 35m</div>
+        <div>
+          <div class="leg-line">
+            <div class="leg-stop">
+              <span class="stop-time">04:25</span>
+              <span class="stop-city">Skopje</span>
+              <span class="stop-day">Fri 2 Oct</span>
+            </div>
+            <div class="stop-sub">Skopje International (SKP)</div>
+            <div class="leg-stop">
+              <span class="stop-time">06:00</span>
+              <span class="stop-city">Vienna</span>
+              <span class="stop-day">Fri 2 Oct</span>
+            </div>
+            <div class="stop-sub">Vienna International (VIE) &nbsp;·&nbsp; Terminal 3</div>
+          </div>
+          <div class="leg-meta"><strong>OS 764</strong> &nbsp;·&nbsp; operated by Austrian Airlines &nbsp;·&nbsp; Airbus A320 &nbsp;·&nbsp; Economy</div>
+        </div>
+      </div>
+
+      <div class="flight-layover">Transfer at Vienna International &nbsp;·&nbsp; 4h 40m &nbsp;·&nbsp; Terminal 3</div>
+
+      <div class="flight-leg">
+        <div class="leg-dur">9h 10m</div>
+        <div>
+          <div class="leg-line">
+            <div class="leg-stop">
+              <span class="stop-time">10:40</span>
+              <span class="stop-city">Vienna</span>
+              <span class="stop-day">Fri 2 Oct</span>
+            </div>
+            <div class="stop-sub">Vienna International (VIE) &nbsp;·&nbsp; Terminal 3</div>
+            <div class="leg-stop">
+              <span class="stop-time">13:50</span>
+              <span class="stop-city">Boston</span>
+              <span class="stop-day">Fri 2 Oct</span>
+            </div>
+            <div class="stop-sub">Edward L. Logan International (BOS) &nbsp;·&nbsp; Terminal E</div>
+          </div>
+          <div class="leg-meta"><strong>OS 031</strong> &nbsp;·&nbsp; operated by Austrian Airlines &nbsp;·&nbsp; Boeing 767-300 (winglets) &nbsp;·&nbsp; Economy</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="flight-foot">
+      <span class="fnote-label">Notes</span>
+      Onboard catering VIE–BOS: meal plus snack / brunch. Extra legroom booked.
+      <strong style="color:var(--amber);font-weight:400">The 04:25 departure means an airport arrival around 02:25 on Oct 2</strong>
+      — plan the Europcar return and the last night in Skopje around a middle-of-the-night start.
+      <div class="notes-field"><label>Your notes</label><textarea id="flight-notes-ret" placeholder="Seat numbers, booking reference, car return time…"></textarea></div>
+    </div>
+  </div>
+
+  <div class="section-label">Reference</div>
+  <div style="background:white;border:1px solid var(--border);padding:0.9rem 1.1rem;font-size:0.86rem;color:var(--muted);line-height:1.8">
+    All times are local to each airport. Skopje, Vienna and Zurich are on
+    Central European Summer Time (UTC+2) for the whole trip; Boston is on
+    Eastern Daylight Time (UTC−4). Clocks do not change in either place
+    between Sep 20 and Oct 2, 2026.
+  </div>
+
+</div>
+</div><!-- /panel-flights -->
 
 
 <!-- ═══════════════════════════════════════
@@ -1187,16 +1482,19 @@ footer {
 
   <div class="day-block" id="day-return">
     <div class="day-header" onclick="toggleDay('day-return')">
-      <div class="day-date">OCT 1–2<br>THURSDAY</div>
+      <div class="day-date">OCT 1–2<br>THU–FRI</div>
       <div class="day-title">Return to Skopje</div>
       <div class="day-type">Return · Departure</div>
     </div>
     <div class="day-content">
       <ul class="activity-list">
-        <li>Drive back to Skopje ~2 hrs</li>
+        <li>Drive back to Skopje ~2 hrs <em>(Thu Oct 1)</em></li>
         <li>Final afternoon — anything missed, last café, last walk</li>
+        <li>Early night — the flight leaves before dawn</li>
+        <li>Leave for the airport ~02:00 <em>(Fri Oct 2)</em></li>
         <li>Return car to Europcar at airport</li>
-        <li>Depart SKP → VIE → BOS <em>(Austrian Airlines)</em></li>
+        <li>Depart SKP 04:25 → VIE → BOS <em>(OS 764 / OS 031, Austrian Airlines)</em></li>
+        <li>Land Boston 13:50 <em>(Terminal E, same day)</em></li>
       </ul>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-return" placeholder=""></textarea></div>
     </div>
@@ -1247,6 +1545,13 @@ function showTab(name, btn) {
   document.getElementById('panel-' + name).classList.add('active');
   btn.classList.add('active');
   if (name === 'map') setTimeout(initMap, 80);
+}
+
+function goToFlights() {
+  const btn = Array.from(document.querySelectorAll('.tab-btn'))
+    .find(b => b.getAttribute('onclick').includes("'flights'"));
+  showTab('flights', btn);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── BOOKING CARDS ──
@@ -1384,7 +1689,7 @@ function doSearch(query) {
   if (!query.trim()) { countEl.textContent = ''; return; }
   const re = new RegExp(query.trim(), 'gi');
   let count = 0;
-  document.querySelectorAll('.activity-list li, .day-title, .bk-place, .booking-detail').forEach(el => {
+  document.querySelectorAll('.activity-list li, .day-title, .bk-place, .booking-detail, .flight-route, .stop-city, .stop-sub, .leg-meta').forEach(el => {
     const replaced = el.innerHTML.replace(/<mark class="hl">|<\/mark>/g, '');
     const newHtml = replaced.replace(re, m => { count++; return `<mark class="hl">${m}</mark>`; });
     if (newHtml !== replaced) {
