@@ -2692,21 +2692,73 @@ function initMap() {
 }
 
 // ── SEARCH ──
+// Matching runs over text nodes, never over innerHTML. Rewriting innerHTML meant
+// a query like "color" or "0.88rem" matched inside a style attribute and broke
+// the element apart, and the damage survived clearing the box. The query is also
+// escaped, so punctuation like "(" is searched for literally instead of being
+// compiled as a pattern and throwing.
+const SEARCH_SELECTOR = '.activity-list li, .day-title, .bk-place, .booking-detail,' +
+  ' .flight-route, .stop-city, .stop-sub, .leg-meta';
+const SEARCH_SKIP = /^(TEXTAREA|INPUT|SELECT|OPTION|SCRIPT|STYLE)$/;
+
+function clearHighlights() {
+  document.querySelectorAll('mark.hl').forEach(m => {
+    const parent = m.parentNode;
+    if (!parent) return;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+}
+
 function doSearch(query) {
-  document.querySelectorAll('mark.hl').forEach(m => m.outerHTML = m.innerHTML);
+  clearHighlights();
   const countEl = document.getElementById('search-count');
-  if (!query.trim()) { countEl.textContent = ''; return; }
-  const re = new RegExp(query.trim(), 'gi');
+  const q = query.trim();
+  if (!q) { countEl.textContent = ''; return; }
+
+  const re = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
   let count = 0;
-  document.querySelectorAll('.activity-list li, .day-title, .bk-place, .booking-detail, .flight-route, .stop-city, .stop-sub, .leg-meta').forEach(el => {
-    const replaced = el.innerHTML.replace(/<mark class="hl">|<\/mark>/g, '');
-    const newHtml = replaced.replace(re, m => { count++; return `<mark class="hl">${m}</mark>`; });
-    if (newHtml !== replaced) {
-      el.innerHTML = newHtml;
+
+  document.querySelectorAll(SEARCH_SELECTOR).forEach(el => {
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        for (let p = node.parentNode; p && p !== el.parentNode; p = p.parentNode) {
+          if (p.nodeType === 1 && SEARCH_SKIP.test(p.tagName)) return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const nodes = [];
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) nodes.push(n);
+
+    let hit = false;
+    nodes.forEach(node => {
+      const text = node.nodeValue;
+      re.lastIndex = 0;
+      if (!re.test(text)) return;
+      re.lastIndex = 0;
+      const frag = document.createDocumentFragment();
+      let last = 0, m;
+      while ((m = re.exec(text)) !== null) {
+        if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+        const mark = document.createElement('mark');
+        mark.className = 'hl';
+        mark.textContent = m[0];
+        frag.appendChild(mark);
+        last = m.index + m[0].length;
+        count++; hit = true;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+
+    if (hit) {
       const seg = el.closest('.day-block, .booking-card');
       if (seg) seg.classList.add('open');
     }
   });
+
   countEl.textContent = count > 0 ? `${count} match${count===1?'':'es'}` : 'No matches';
 }
 
