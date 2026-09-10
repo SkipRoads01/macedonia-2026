@@ -464,6 +464,39 @@ mark.hl { background: #f0d870; color: var(--text); border-radius: 2px; padding: 
 }
 @media print { .fx-key { display: none; } }
 
+/* ═══ STAY ADDRESS ═══ */
+.stay-meta {
+  margin-top: 0.9rem;
+  padding: 0.7rem 0.85rem;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+.stay-row { display: flex; gap: 0.75rem; align-items: baseline; }
+.stay-row + .stay-row { margin-top: 0.5rem; }
+.stay-label {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex: none;
+  width: 4.6rem;
+  padding-top: 0.15rem;
+}
+.stay-addr { font-size: 0.88rem; color: var(--text); line-height: 1.6; }
+.stay-times {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+.stay-times b { color: var(--text); font-weight: 400; }
+@media (max-width: 620px) {
+  .stay-row { display: block; }
+  .stay-label { width: auto; margin-bottom: 0.15rem; }
+}
+
 /* ═══ FLIGHTS ═══ */
 .flight-journey {
   background: white;
@@ -1087,6 +1120,10 @@ footer {
       <div class="status-pill pill-transit">Arrival</div>
     </div>
     <div class="booking-detail">
+      <div class="stay-meta">
+        <div class="stay-row"><span class="stay-label">Address</span><span class="stay-addr">Macedonia Street 41 6, Skopje, Greater Skopje 1000, North Macedonia</span></div>
+        <div class="stay-row"><span class="stay-label">Access</span><span class="stay-times">Check-in <b>After 3pm</b> &nbsp;·&nbsp; Checkout <b>Before 11am</b></span></div>
+      </div>
       <div class="detail-grid">
         <div class="field"><label>Hotel</label><input type="text" id="hotel-arrive" value="Airbnb" placeholder="Hotel name"></div>
         <div class="field"><label>Status</label>
@@ -1157,6 +1194,10 @@ footer {
       <div class="status-pill pill-pending">Pending</div>
     </div>
     <div class="booking-detail">
+      <div class="stay-meta">
+        <div class="stay-row"><span class="stay-label">Address</span><span class="stay-addr">Makedonska Falanga 23, Bitola, Municipality of Bitola 7000, North Macedonia</span></div>
+        <div class="stay-row"><span class="stay-label">Access</span><span class="stay-times">Check-in <b>After 3pm</b> &nbsp;·&nbsp; Checkout <b>Before 12pm</b></span></div>
+      </div>
       <div class="detail-grid">
         <div class="field"><label>Hotel</label><input type="text" id="hotel-bitola" value="Brand New Apt (Airbnb)" placeholder="Hotel name"></div>
         <div class="field"><label>Status</label>
@@ -1197,6 +1238,10 @@ footer {
       <div class="status-pill pill-pending">Pending</div>
     </div>
     <div class="booking-detail">
+      <div class="stay-meta">
+        <div class="stay-row"><span class="stay-label">Address</span><span class="stay-addr">Boro Sain 5, Saint Sophia church, Ohrid, Ohrid 6000, North Macedonia</span></div>
+        <div class="stay-row"><span class="stay-label">Access</span><span class="stay-times">Check-in <b>After 2pm</b> &nbsp;·&nbsp; Checkout <b>Before 10am</b></span></div>
+      </div>
       <div class="detail-grid">
         <div class="field"><label>Hotel</label><input type="text" id="hotel-ohrid" value="Lake View Studio (Airbnb)" placeholder="Hotel name"></div>
         <div class="field"><label>Status</label>
@@ -1222,6 +1267,10 @@ footer {
       <div class="status-pill pill-pending">Pending</div>
     </div>
     <div class="booking-detail">
+      <div class="stay-meta">
+        <div class="stay-row"><span class="stay-label">Address</span><span class="stay-addr">Bigorski Monastery, 1254 Rostusa, North Macedonia</span></div>
+        <div class="stay-row"><span class="stay-label">Access</span><span class="stay-times">Check-in <b>After 2pm</b> &nbsp;·&nbsp; Checkout <b>Before 12pm</b></span></div>
+      </div>
       <div class="detail-grid">
         <div class="field"><label>Hotel / Guesthouse</label><input type="text" id="hotel-mavrovo" value="Guest Mansion" placeholder="Name"></div>
         <div class="field"><label>Status</label>
@@ -1247,6 +1296,10 @@ footer {
       <div class="status-pill pill-transit">Return</div>
     </div>
     <div class="booking-detail">
+      <div class="stay-meta">
+        <div class="stay-row"><span class="stay-label">Address</span><span class="stay-addr">Jordan Mijalkov 31, Tower A, Apartment 44 (Diamond Residence), Skopje 1000, North Macedonia</span></div>
+        <div class="stay-row"><span class="stay-label">Access</span><span class="stay-times">Check-in <b>After 3pm</b> &nbsp;·&nbsp; Checkout <b>Before 11am</b></span></div>
+      </div>
       <div class="detail-grid">
         <div class="field"><label>Hotel (if needed)</label><input type="text" id="hotel-return" value="The Address (Airbnb)" placeholder="Hotel or airport"></div>
         <div class="field"><label>Status</label>
