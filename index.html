@@ -173,6 +173,7 @@ mark.hl { background: #f0d870; color: var(--text); border-radius: 2px; padding: 
   background: var(--dark);
   border-bottom: 1px solid var(--mid);
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   position: sticky;
   top: 0;
@@ -980,6 +981,59 @@ mark.hl { background: #f0d870; color: var(--text); border-radius: 2px; padding: 
 }
 .btn-budget:hover { border-color: var(--gold); color: var(--gold); }
 
+/* ═══ RESEARCH ═══ */
+.research-entry {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1.3rem;
+}
+.research-kicker {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--warm);
+  margin-bottom: 0.5rem;
+}
+.research-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--text);
+  margin-bottom: 0.45rem;
+}
+.research-cite {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.65;
+  padding-bottom: 0.9rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #f0ebe0;
+}
+.research-cite cite { font-style: italic; }
+.research-entry a {
+  color: var(--amber);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+.research-entry a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+.research-summary { font-size: 0.9rem; line-height: 1.75; }
+.research-summary p { margin-bottom: 0.8rem; }
+.research-summary ul { margin: 0 0 0.8rem 1.1rem; }
+.research-summary li { margin-bottom: 0.45rem; }
+.research-summary > :last-child { margin-bottom: 0; }
+.research-note {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.62rem;
+  line-height: 1.75;
+  color: var(--muted);
+  border-left: 2px solid var(--border);
+  padding-left: 0.8rem;
+  margin-top: 1.1rem;
+}
+
 /* ═══ FOOTER ═══ */
 footer {
   background: var(--dark);
@@ -1096,6 +1150,7 @@ footer {
   <button class="tab-btn" onclick="showTab('nhl', this)">NHL</button>
   <button class="tab-btn" onclick="showTab('itinerary', this)">Itinerary</button>
   <button class="tab-btn" onclick="showTab('map', this)">Route Map</button>
+  <button class="tab-btn" onclick="showTab('research', this)">Research</button>
 </nav>
 
 <!-- ═══════════════════════════════════════
@@ -1925,6 +1980,40 @@ footer {
 </div><!-- /panel-map -->
 
 
+<!-- ═══════════════════════════════════════
+     RESEARCH
+════════════════════════════════════════ -->
+<div id="panel-research" class="panel">
+<div class="container">
+  <div class="section-label">Research · Background reading</div>
+
+  <article class="research-entry">
+    <div class="research-kicker">The Economist · Graphic detail · Daily chart</div>
+    <h2 class="research-title">Will the name “North Macedonia” catch on?</h2>
+    <p class="research-cite">
+      “Will the name ‘North Macedonia’ catch on?”, <cite>The Economist</cite>, Graphic detail,
+      8 February 2019.
+      <a href="https://www.economist.com/graphic-detail/2019/02/08/will-the-name-north-macedonia-catch-on" target="_blank" rel="noopener">economist.com</a>
+      &nbsp;·&nbsp;
+      <a href="https://web.archive.org/web/20190208165853/https://www.economist.com/graphic-detail/2019/02/08/will-the-name-north-macedonia-catch-on" target="_blank" rel="noopener">archived copy</a>
+    </p>
+    <div class="research-summary">
+      <p>On 25 January 2019 lawmakers in Greece voted to recognise their northern neighbour as “North Macedonia”, ending a 28-year dispute over the name and opening the way to NATO and EU membership. The article sets the change alongside two other recent renamings — the Czech Republic adopting “Czechia” as its official short name in 2016, and Swaziland becoming “eSwatini” in 2018.</p>
+      <p>Its chart asks how long a new country name takes to be adopted in practice. Using Google Ngram Viewer — a database of more than 5m printed works — it tracks three earlier changes:</p>
+      <ul>
+        <li><strong>Ceylon → Sri Lanka</strong> (1972): nearly a decade before the new name drew more mentions in print than the old one.</li>
+        <li><strong>Rhodesia → Zimbabwe</strong>: about half that time.</li>
+        <li><strong>Burma → Myanmar</strong> (1989): some foreign governments declined to use the new name, on the grounds that doing so would grant the ruling military junta legitimacy. As late as 2008, “Burma” still appeared in English-language books more than twice as often as “Myanmar”.</li>
+      </ul>
+      <p>At the time of publication the new name had not yet been submitted to the UN’s database of geographical names, and Google Maps still labelled the country “Macedonia (FYROM)”.</p>
+      <p class="research-note">Published two weeks after the Greek vote, the piece covers the naming dispute and earlier precedents only. It carries no data on how widely “North Macedonia” has been adopted since 2019.</p>
+    </div>
+  </article>
+
+</div>
+</div><!-- /panel-research -->
+
+
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <p class="footer-attr">Rebecca West &nbsp;·&nbsp; Black Lamb and Grey Falcon &nbsp;·&nbsp; North Macedonia 2026</p>
@@ -2113,7 +2202,8 @@ function initMap() {
 // escaped, so punctuation like "(" is searched for literally instead of being
 // compiled as a pattern and throwing.
 const SEARCH_SELECTOR = '.activity-list li, .day-title, .bk-place, .booking-detail,' +
-  ' .flight-route, .stop-city, .stop-sub, .leg-meta';
+  ' .flight-route, .stop-city, .stop-sub, .leg-meta,' +
+  ' .research-title, .research-cite, .research-summary p, .research-summary li';
 const SEARCH_SKIP = /^(TEXTAREA|INPUT|SELECT|OPTION|SCRIPT|STYLE)$/;
 
 function clearHighlights() {
