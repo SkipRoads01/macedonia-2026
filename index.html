@@ -981,6 +981,62 @@ mark.hl { background: #f0d870; color: var(--text); border-radius: 2px; padding: 
 }
 .btn-budget:hover { border-color: var(--gold); color: var(--gold); }
 
+/* ═══ RECENT NEWS ═══ */
+.news-note {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1.1rem;
+  font-size: 0.88rem;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.news-note cite { font-style: normal; }
+.news-list {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 0.4rem 1.2rem;
+  margin-bottom: 1.1rem;
+}
+.news-item {
+  display: grid;
+  grid-template-columns: 6.6rem 1fr;
+  gap: 0.9rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid #f0ebe0;
+}
+.news-item:last-child { border-bottom: none; }
+.news-date {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.25rem;
+  white-space: nowrap;
+}
+.news-head { font-size: 0.92rem; line-height: 1.5; margin-bottom: 0.25rem; }
+.news-head a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); }
+.news-head a:hover { color: var(--amber); border-bottom-color: var(--gold); }
+.news-sum { font-size: 0.85rem; line-height: 1.7; color: #3a362f; }
+.news-flag {
+  display: inline-block;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: var(--cream);
+  border: 1px solid var(--border);
+  padding: 0.1rem 0.4rem;
+  margin-left: 0.4rem;
+  white-space: nowrap;
+}
+@media (max-width: 620px) {
+  .news-item { grid-template-columns: 1fr; gap: 0.3rem; }
+}
+
 /* ═══ RESEARCH ═══ */
 .research-entry {
   background: white;
@@ -2014,6 +2070,95 @@ footer {
 ════════════════════════════════════════ -->
 <div id="panel-research" class="panel">
 <div class="container">
+  <div class="section-label">Recent news · North Macedonia</div>
+
+  <div class="news-note">
+    The eleven most recent North Macedonia stories from <cite>Balkan Insight</cite>, the news site of
+    the Balkan Investigative Reporting Network, read on 14 September 2026 and summarised here. BIRN
+    does accountability journalism, so this feed leans towards scandal, budgets and courts, and is not
+    a picture of ordinary life. Newest first; each headline links to the original.
+  </div>
+
+  <div class="news-list">
+      <div class="news-item">
+        <div class="news-date">14 Sep 2026</div>
+        <div>
+          <div class="news-head"><a href="https://balkaninsight.com/2026/09/14/north-macedonia-to-tweak-investment-for-citizenship-rules-but-eu-concerns-remain/bi/" target="_blank" rel="noopener">EU says golden-passport reform doesn’t go far enough</a></div>
+          <div class="news-sum">June amendments scrap the €400,000 investment threshold and the requirement to employ ten people, but keep the power to naturalise anyone deemed of “special interest” — economic, cultural or sporting. Brussels is not satisfied.</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">11 Sep 2026</div>
+        <div>
+          <div class="news-head"><a href="https://balkaninsight.com/2026/09/11/north-macedonia-govt-finally-reveals-independence-day-celebrations-cost/bi/" target="_blank" rel="noopener">Independence Day celebrations cost €5.5m</a><span class="news-flag">12 days before you land</span></div>
+          <div class="news-sum">The 35th-anniversary events on 8 September — headlined by David Guetta, with José Carreras, Steve Aoki, Paul van Dyk and Paul Oakenfold — were funded with €4.9m from the state-owned State Lottery’s undistributed 2024 profits and €650,000 from companies. The government, which disclosed the figures only after a BIRN report, maintains the events cost the budget “zero denars”.</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">27 Aug 2026</div>
+        <div>
+          <div class="news-head"><a href="https://balkaninsight.com/2026/08/27/north-macedonia-serbia-sign-pipeline-agreement-to-enable-regional-gas-link/bi/" target="_blank" rel="noopener">Gas interconnector agreement signed with Serbia</a></div>
+          <div class="news-sum">A 67km pipeline due for completion in 2027 could link the two gas networks by 2028, alongside a separate Greece interconnector expected in 2027. Mickoski frames it as “full vertical energy connectivity” and a possible south-north transit route for LNG from Alexandroupolis towards Hungary and Austria — an alternative to Russian supply, on which Serbia still depends for about 2.45 of the 2.76 bcm it imported in 2025.</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">26 Aug 2026</div>
+        <div>
+          <div class="news-head"><a href="https://balkaninsight.com/2026/08/26/north-macedonia-sees-drop-in-new-school-pupils-amid-demographic-woes/bi/" target="_blank" rel="noopener">First-grade enrolment down 38% in a decade</a><span class="news-flag">the depopulation thread</span></div>
+          <div class="news-sum">Preliminary enrolment for 2026-27 is about 14,500 children, against 17,921 last year and 23,266 in 2016-17. Around 200 primary and 100 secondary classes will not run, and 26 rural schools are expected to close during the year. A former head of the statistical office estimates the country loses 1,500–2,000 pupils mid-year to emigration.</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">13 Aug 2026</div>
+        <div>
+          <div class="news-head"><a href="https://balkaninsight.com/2026/08/13/north-macedonia-indicts-ex-deputy-pm-grubi-over-lottery-machines-purchase/bi/" target="_blank" rel="noopener">Ex-deputy PM Artan Grubi indicted over lottery terminals</a></div>
+          <div class="news-sum">Grubi, the DUI’s first deputy prime minister from 2020 to 2024, was charged with seven others over the purchase of video lottery terminals that could not legally be operated, costing the State Lottery more than €8.2m. He left the country in December 2024, returned in February 2026 and was arrested at the Blace crossing, then released to house arrest. The US State Department sanctioned him for corruption in December 2024.</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">12 Aug 2026</div>
+        <div>
+          <div class="news-head"><a href="https://balkaninsight.com/2026/08/12/north-macedonia-parties-share-out-nearly-e9-million-from-state-budget/bi/" target="_blank" rel="noopener">Parties draw nearly €9m in state funding</a></div>
+          <div class="news-sum">A BIRN analysis of Justice Ministry data: VMRO-DPMNE took a record €2.5m, SDSM’s funding fell about 40% to roughly €1m, and the DUI’s dropped to about €472,000. Because 70% of the money follows elected MPs and the 1,307 municipal councillors, the 2025 local elections reset the balance. Sixty-two parties qualified; the total is 0.15% of the state budget.</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">4 Aug 2026</div>
+        <div>
+          <div class="news-head"><a href="https://balkaninsight.com/2026/08/04/north-macedonia-opposition-blasts-secret-talks-on-deal-with-bulgaria/bi/" target="_blank" rel="noopener">Foreign minister admits confidential talks with Bulgaria</a></div>
+          <div class="news-sum">Timčo Mucunski said the government is pursuing a “lasting and sustainable solution” to the dispute blocking EU accession, but would not name the parties involved; SDSM called it negotiating behind citizens’ backs. The government still refuses to amend the constitution without guarantees against a further veto, while Enlargement Commissioner Marta Kos has said enlargement is not built on guarantees given in advance.</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">27 Jul 2026</div>
+        <div>
+          <div class="news-head"><a href="https://balkaninsight.com/2026/07/27/north-macedonia-mourns-much-loved-actor-goce-todorovski/bi/" target="_blank" rel="noopener">Actor Goce Todorovski dies at 75</a></div>
+          <div class="news-sum">A fixture of the Drama Theatre in Skopje from 1978, in more than 50 productions, and best known nationally for the television series <em>Macedonian Folk Tales</em> and the children’s series <em>Bushava Azbuka</em>. He received the state “23 October” prize and the Presidential Order of Merit in 2023.</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">22 Jul 2026</div>
+        <div>
+          <div class="news-head"><a href="https://balkaninsight.com/2026/07/22/serbia-indicts-six-for-drug-trafficking-linked-to-north-macedonia/bi/" target="_blank" rel="noopener">Serbia indicts six over drugs produced across both countries</a></div>
+          <div class="news-sum">Serbia’s organised crime prosecutor charged six alleged members of a group said to have produced and trafficked drugs in Serbia and North Macedonia from 2025 until late January 2026.</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">22 Jul 2026</div>
+        <div>
+          <div class="news-head"><a href="https://balkaninsight.com/2026/07/22/north-macedonias-access-to-information-agency-accused-of-hindering-appeals/bi/" target="_blank" rel="noopener">Freedom-of-information agency accused of blocking appeals</a></div>
+          <div class="news-sum">The only body that hears appeals when institutions withhold public information has begun rejecting emailed appeals without a certified electronic signature, which costs €30–65 a year. One of the freedom-of-information law’s authors and two law professors — including a drafter of the procedural law the agency cites — say the interpretation is wrong.</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">21 Jul 2026</div>
+        <div>
+          <div class="news-head"><a href="https://balkaninsight.com/2026/07/21/tests-show-faeces-contaminated-north-macedonia-towns-water-supply/bi/" target="_blank" rel="noopener">Faecal contamination of Gostivar’s water supply — since resolved</a><span class="news-flag">on your Mavrovo leg</span></div>
+          <div class="news-sum">More than 3,000 people fell ill in one of the country’s largest waterborne incidents in decades, after the utility apparently connected extra pumps drawing on a surface source; tests found coliform bacteria and E. coli, and three utility managers were detained. <strong>The all-clear came on 14 August 2026</strong>, when the Food and Veterinary Agency declared the supply safe after clean samples from seven points, so this is history rather than a live hazard — noted only because Gostivar sits on the Tetovo–Mavrovo road.</div>
+        </div>
+      </div>
+  </div>
+
   <div class="section-label">Research · Background reading</div>
 
   <div class="research-intro">
@@ -2515,7 +2660,8 @@ function initMap() {
 // compiled as a pattern and throwing.
 const SEARCH_SELECTOR = '.activity-list li, .day-title, .bk-place, .booking-detail,' +
   ' .flight-route, .stop-city, .stop-sub, .leg-meta,' +
-  ' .research-title, .research-cite, .research-summary p, .research-update';
+  ' .research-title, .research-cite, .research-summary p, .research-update,' +
+  ' .news-head, .news-sum';
 const SEARCH_SKIP = /^(TEXTAREA|INPUT|SELECT|OPTION|SCRIPT|STYLE)$/;
 
 function clearHighlights() {
