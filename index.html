@@ -721,6 +721,83 @@ mark.hl { background: #f0d870; color: var(--text); border-radius: 2px; padding: 
   .nhl-venue   { display: none; }
 }
 
+/* ═══ MLB ═══ */
+.mlb-intro { font-size: 0.92rem; line-height: 1.65; color: #2e2b26; margin-bottom: 1.1rem; }
+.mlb-intro strong { font-weight: 600; }
+.mlb-fine { font-size: 0.8rem; line-height: 1.6; color: var(--muted); margin: 0.2rem 0 1rem; }
+.mlb-slots {
+  border: 1px solid var(--border);
+  background: white;
+  padding: 0.7rem 0.9rem;
+  margin-bottom: 1.5rem;
+  max-width: 26rem;
+}
+.mlb-slots-head {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--warm);
+  margin-bottom: 0.35rem;
+}
+.mlb-slot {
+  display: grid;
+  grid-template-columns: 7.2rem 1fr;
+  gap: 0.9rem;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.74rem;
+  padding: 0.18rem 0;
+}
+.mlb-slot span:first-child { color: var(--muted); }
+.mlb-stakes {
+  grid-column: 1 / -1;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--muted);
+  font-style: italic;
+  padding-left: 16.2rem;
+  margin-top: -0.3rem;
+}
+.mlb-tv {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm);
+  border: 1px solid var(--border);
+  padding: 0.05rem 0.3rem;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.nhl-game.mlb-sox { box-shadow: inset 3px 0 0 var(--gold); }
+.mlb-races { margin-bottom: 1.5rem; }
+.mlb-race {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 0.9rem;
+  padding: 0.5rem 0.3rem;
+  border-bottom: 1px solid #f0ebe0;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: #2e2b26;
+}
+.mlb-race:last-child { border-bottom: none; }
+.mlb-race-name {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--warm);
+  padding-top: 0.2rem;
+}
+@media (max-width: 620px) {
+  .mlb-stakes { padding-left: 0; margin-top: 0; }
+  .mlb-race { grid-template-columns: 1fr; gap: 0.15rem; }
+  .mlb-slot { grid-template-columns: 6.5rem 1fr; gap: 0.5rem; }
+  .nhl-venue.mlb-proj { display: block; grid-column: 1 / -1; text-align: left; max-width: none; margin-top: -0.3rem; }
+}
+
 /* ═══ ITINERARY ═══ */
 .day-block { border-bottom: 1px solid var(--border); }
 .day-block:last-child { border-bottom: none; }
@@ -1321,6 +1398,7 @@ footer {
   <button class="tab-btn active" onclick="showTab('booking', this)">Booking Overview</button>
   <button class="tab-btn" onclick="showTab('flights', this)">Flights</button>
   <button class="tab-btn" onclick="showTab('nhl', this)">NHL</button>
+  <button class="tab-btn" onclick="showTab('mlb', this)">MLB</button>
   <button class="tab-btn" onclick="showTab('itinerary', this)">Itinerary</button>
   <button class="tab-btn" onclick="showTab('map', this)">Route Map</button>
   <button class="tab-btn" onclick="showTab('research', this)">Research</button>
@@ -1949,6 +2027,431 @@ footer {
 
 </div>
 </div><!-- /panel-nhl -->
+
+<!-- ═══════════════════════════════════════
+     MLB — PENNANT RACE &amp; POSTSEASON
+════════════════════════════════════════ -->
+<div id="panel-mlb" class="panel">
+<div class="container">
+  <div class="section-label">MLB 2026 · Postseason while you’re away</div>
+
+  <p class="mlb-intro">The regular season ends <strong>Sunday 27 September</strong>. The Wild Card Series follows: four best-of-three series, <strong>Tuesday 29 September to Thursday 1 October</strong>, with every game at the higher seed’s park. The seeds are known only after the last out on the 27th, and MLB sets game times once the matchups are known, so the times below are still TBD. Macedonia is <strong>6 hours ahead</strong> of Eastern for the whole trip.</p>
+
+  <div class="mlb-slots">
+    <div class="mlb-slots-head">Typical Wild Card start times</div>
+    <div class="mlb-slot"><span>~1:00 PM ET</span><span>~7:00 PM Macedonia</span></div>
+    <div class="mlb-slot"><span>~3:00 PM ET</span><span>~9:00 PM Macedonia</span></div>
+    <div class="mlb-slot"><span>~6:00 PM ET</span><span>~midnight Macedonia</span></div>
+    <div class="mlb-slot"><span>~9:00 PM ET</span><span>~3:00 AM Macedonia (next day)</span></div>
+  </div>
+
+  <div class="nhl-day">
+    <div class="nhl-day-head">
+      <span class="nhl-day-date">Tuesday 29 September</span>
+      <span class="nhl-day-count">Game 1</span>
+    </div>
+    <div class="nhl-colhead"><span>Eastern</span><span>Macedonia</span><span>Matchup</span></div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">TBD</span>
+      <span class="nhl-time">TBD</span>
+      <span class="nhl-match">AL #6 <span class="at">at</span> AL #3</span>
+      <span class="nhl-venue mlb-proj">Today: CWS at HOU/TEX</span>
+    </div>
+    <div class="nhl-game mlb-sox">
+      <span class="nhl-time-et">TBD</span>
+      <span class="nhl-time">TBD</span>
+      <span class="nhl-match">AL #5 <span class="at">at</span> AL #4</span>
+      <span class="nhl-venue mlb-proj">Today: BOS at NYY</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">TBD</span>
+      <span class="nhl-time">TBD</span>
+      <span class="nhl-match">NL #6 <span class="at">at</span> NL #3</span>
+      <span class="nhl-venue mlb-proj">Today: CHC/PHI/SD at ATL</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">TBD</span>
+      <span class="nhl-time">TBD</span>
+      <span class="nhl-match">NL #5 <span class="at">at</span> NL #4</span>
+      <span class="nhl-venue mlb-proj">Today: two of CHC/PHI/SD</span>
+    </div>
+  </div>
+
+  <div class="nhl-day">
+    <div class="nhl-day-head">
+      <span class="nhl-day-date">Wednesday 30 September</span>
+      <span class="nhl-day-count">Game 2</span>
+    </div>
+    <div class="nhl-colhead"><span>Eastern</span><span>Macedonia</span><span>Matchup</span></div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">TBD</span>
+      <span class="nhl-time">TBD</span>
+      <span class="nhl-match">AL #6 <span class="at">at</span> AL #3</span>
+      <span class="nhl-venue mlb-proj">Today: CWS at HOU/TEX</span>
+    </div>
+    <div class="nhl-game mlb-sox">
+      <span class="nhl-time-et">TBD</span>
+      <span class="nhl-time">TBD</span>
+      <span class="nhl-match">AL #5 <span class="at">at</span> AL #4</span>
+      <span class="nhl-venue mlb-proj">Today: BOS at NYY</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">TBD</span>
+      <span class="nhl-time">TBD</span>
+      <span class="nhl-match">NL #6 <span class="at">at</span> NL #3</span>
+      <span class="nhl-venue mlb-proj">Today: CHC/PHI/SD at ATL</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">TBD</span>
+      <span class="nhl-time">TBD</span>
+      <span class="nhl-match">NL #5 <span class="at">at</span> NL #4</span>
+      <span class="nhl-venue mlb-proj">Today: two of CHC/PHI/SD</span>
+    </div>
+  </div>
+
+  <div class="nhl-day">
+    <div class="nhl-day-head">
+      <span class="nhl-day-date">Thursday 01 October</span>
+      <span class="nhl-day-count">Game 3 · if necessary</span>
+    </div>
+    <div class="nhl-colhead"><span>Eastern</span><span>Macedonia</span><span>Matchup</span></div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">TBD</span>
+      <span class="nhl-time">TBD</span>
+      <span class="nhl-match">AL #6 <span class="at">at</span> AL #3</span>
+      <span class="nhl-venue mlb-proj">Today: CWS at HOU/TEX</span>
+    </div>
+    <div class="nhl-game mlb-sox">
+      <span class="nhl-time-et">TBD</span>
+      <span class="nhl-time">TBD</span>
+      <span class="nhl-match">AL #5 <span class="at">at</span> AL #4</span>
+      <span class="nhl-venue mlb-proj">Today: BOS at NYY</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">TBD</span>
+      <span class="nhl-time">TBD</span>
+      <span class="nhl-match">NL #6 <span class="at">at</span> NL #3</span>
+      <span class="nhl-venue mlb-proj">Today: CHC/PHI/SD at ATL</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">TBD</span>
+      <span class="nhl-time">TBD</span>
+      <span class="nhl-match">NL #5 <span class="at">at</span> NL #4</span>
+      <span class="nhl-venue mlb-proj">Today: two of CHC/PHI/SD</span>
+    </div>
+  </div>
+
+  <p class="mlb-fine">Seeds 1–3 in each league are the division winners by record; seeds 4–6 are the three best non-winners. Seeds 1 and 2 get a bye to the Division Series. “Today” shows who would play if the season ended on Saturday 19 September.</p>
+
+  <div class="section-label">Down to the wire · Standings as of Sat 19 Sep</div>
+
+  <div class="mlb-races">
+    <div class="mlb-race"><span class="mlb-race-name">AL East</span><span>TB 93–60 leads NYY 89–64 by 4. Both have clinched a playoff spot. Tampa Bay’s magic number is 6, and the winner likely gets the AL’s #1 seed and a bye. They play four at Yankee Stadium, 22–24 Sep.</span></div>
+    <div class="mlb-race"><span class="mlb-race-name">AL Central</span><span>CLE 79–75, CWS 78–76 (1 back). They have no games left against each other. Cleveland plays at Boston, then at Kansas City; Chicago plays KC and Colorado. The winner is on track for the AL #2 seed and a bye.</span></div>
+    <div class="mlb-race"><span class="mlb-race-name">AL West</span><span>HOU and TEX tied at 77–77, with no games left against each other. Houston plays at Seattle and the Athletics; Texas plays the Mets, then at Minnesota.</span></div>
+    <div class="mlb-race"><span class="mlb-race-name">AL last wild card</span><span>CWS 78–76 holds it. The HOU/TEX runner-up is 1 back, TOR 2 back, BAL 3, DET 5. The Red Sox (84–70) are 6 clear of the cutoff and all but in.</span></div>
+    <div class="mlb-race"><span class="mlb-race-name">NL East</span><span>ATL 90–64 leads PHI by 5 and has clinched a playoff spot. Atlanta’s magic number is 3.</span></div>
+    <div class="mlb-race"><span class="mlb-race-name">NL wild cards</span><span>CHC, PHI and SD are all 85–69 and fighting for the #4 seed, which hosts all three Wild Card games. Arizona is 5 back.</span></div>
+    <div class="mlb-race"><span class="mlb-race-name">NL byes</span><span>MIL 96–58 and LAD 94–60 have clinched their divisions and hold the two byes. Atlanta is 4 behind the Dodgers for #2.</span></div>
+  </div>
+
+  <div class="section-label">Key games · Final week</div>
+  <p class="mlb-fine" style="margin-top:0">Grouped by Macedonia date. Evening games in the US land after midnight in Macedonia. Red Sox games are marked in gold. Monday 28 September is an off day: ties are broken by formula, with no extra games.</p>
+
+  <div class="nhl-day">
+    <div class="nhl-day-head">
+      <span class="nhl-day-date">Sunday 20 September</span>
+      <span class="nhl-day-count">4 key games</span>
+    </div>
+    <div class="nhl-colhead"><span>Eastern</span><span>Macedonia</span><span>Matchup</span></div>
+    <div class="nhl-game mlb-sox">
+      <span class="nhl-time-et">Sun 1:40 PM</span>
+      <span class="nhl-time">Sun 7:40 PM</span>
+      <span class="nhl-match">BOS <span class="at">at</span> TB</span>
+      <span class="nhl-venue">Tropicana Field</span>
+      <span class="mlb-stakes">Red Sox close out a series at Tampa Bay, who are chasing the AL’s #1 seed.</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Sun 2:10 PM</span>
+      <span class="nhl-time">Sun 8:10 PM</span>
+      <span class="nhl-match">DET <span class="at">at</span> CWS</span>
+      <span class="nhl-venue">Rate Field</span>
+      <span class="mlb-stakes">White Sox hold the last AL wild card and sit 1 back in the Central; Detroit needs a sweep to stay alive.</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Sun 2:10 PM</span>
+      <span class="nhl-time">Sun 8:10 PM</span>
+      <span class="nhl-match">ATL <span class="at">at</span> HOU</span>
+      <span class="nhl-venue">Daikin Park</span>
+      <span class="mlb-stakes">Houston is tied with Texas for the AL West.</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Sun 2:35 PM</span>
+      <span class="nhl-time">Sun 8:35 PM</span>
+      <span class="nhl-match">TOR <span class="at">at</span> TEX</span>
+      <span class="nhl-venue">Globe Life Field</span>
+      <span class="mlb-stakes">Texas is tied for the AL West; Toronto is 2 back of the last wild card.</span>
+    </div>
+  </div>
+
+  <div class="nhl-day">
+    <div class="nhl-day-head">
+      <span class="nhl-day-date">Monday 21 September</span>
+      <span class="nhl-day-count">1 key game</span>
+    </div>
+    <div class="nhl-colhead"><span>Eastern</span><span>Macedonia</span><span>Matchup</span></div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Sun 7:20 PM</span>
+      <span class="nhl-time">Mon 1:20 AM</span>
+      <span class="nhl-match">MIL <span class="at">at</span> BAL <span class="mlb-tv">Peacock</span></span>
+      <span class="nhl-venue">Camden Yards</span>
+      <span class="mlb-stakes">Baltimore, 3 back of the last wild card, is running out of games.</span>
+    </div>
+  </div>
+
+  <div class="nhl-day">
+    <div class="nhl-day-head">
+      <span class="nhl-day-date">Tuesday 22 September</span>
+      <span class="nhl-day-count">2 key games</span>
+    </div>
+    <div class="nhl-colhead"><span>Eastern</span><span>Macedonia</span><span>Matchup</span></div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Mon 6:35 PM</span>
+      <span class="nhl-time">Tue 12:35 AM</span>
+      <span class="nhl-match">TOR <span class="at">at</span> BAL</span>
+      <span class="nhl-venue">Camden Yards</span>
+      <span class="mlb-stakes">Two wild-card long shots, three games head-to-head. The loser is likely done.</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Tue 1:05 PM</span>
+      <span class="nhl-time">Tue 7:05 PM</span>
+      <span class="nhl-match">TB <span class="at">at</span> NYY</span>
+      <span class="nhl-venue">Yankee Stadium</span>
+      <span class="mlb-stakes">AL East showdown: four games in three days, starting with a doubleheader. The Yankees trail by 4 and need at least three.</span>
+    </div>
+  </div>
+
+  <div class="nhl-day">
+    <div class="nhl-day-head">
+      <span class="nhl-day-date">Wednesday 23 September</span>
+      <span class="nhl-day-count">5 key games</span>
+    </div>
+    <div class="nhl-colhead"><span>Eastern</span><span>Macedonia</span><span>Matchup</span></div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Tue 6:35 PM</span>
+      <span class="nhl-time">Wed 12:35 AM</span>
+      <span class="nhl-match">TOR <span class="at">at</span> BAL</span>
+      <span class="nhl-venue">Camden Yards</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Tue 6:40 PM</span>
+      <span class="nhl-time">Wed 12:40 AM</span>
+      <span class="nhl-match">MIL <span class="at">at</span> PHI</span>
+      <span class="nhl-venue">Citizens Bank Park</span>
+      <span class="mlb-stakes">Milwaukee is chasing the NL’s #1 seed; Philadelphia is in a three-way tie for the NL wild-card spots.</span>
+    </div>
+    <div class="nhl-game mlb-sox">
+      <span class="nhl-time-et">Tue 6:45 PM</span>
+      <span class="nhl-time">Wed 12:45 AM</span>
+      <span class="nhl-match">CLE <span class="at">at</span> BOS</span>
+      <span class="nhl-venue">Fenway Park</span>
+      <span class="mlb-stakes">AL Central leaders at Fenway. The Red Sox are playing for wild-card seeding (the #4 seed hosts every Wild Card game).</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Tue 7:05 PM</span>
+      <span class="nhl-time">Wed 1:05 AM</span>
+      <span class="nhl-match">TB <span class="at">at</span> NYY <span class="mlb-tv">TBS</span></span>
+      <span class="nhl-venue">Yankee Stadium</span>
+      <span class="mlb-stakes">Game 2 of the doubleheader.</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Tue 10:10 PM</span>
+      <span class="nhl-time">Wed 4:10 AM</span>
+      <span class="nhl-match">SD <span class="at">at</span> LAD <span class="mlb-tv">TBS</span></span>
+      <span class="nhl-venue">Dodger Stadium</span>
+      <span class="mlb-stakes">San Diego is tied for the NL wild-card spots; the Dodgers are protecting a first-round bye.</span>
+    </div>
+  </div>
+
+  <div class="nhl-day">
+    <div class="nhl-day-head">
+      <span class="nhl-day-date">Thursday 24 September</span>
+      <span class="nhl-day-count">5 key games</span>
+    </div>
+    <div class="nhl-colhead"><span>Eastern</span><span>Macedonia</span><span>Matchup</span></div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Wed 6:35 PM</span>
+      <span class="nhl-time">Thu 12:35 AM</span>
+      <span class="nhl-match">TOR <span class="at">at</span> BAL</span>
+      <span class="nhl-venue">Camden Yards</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Wed 6:40 PM</span>
+      <span class="nhl-time">Thu 12:40 AM</span>
+      <span class="nhl-match">MIL <span class="at">at</span> PHI</span>
+      <span class="nhl-venue">Citizens Bank Park</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Wed 7:05 PM</span>
+      <span class="nhl-time">Thu 1:05 AM</span>
+      <span class="nhl-match">TB <span class="at">at</span> NYY</span>
+      <span class="nhl-venue">Yankee Stadium</span>
+    </div>
+    <div class="nhl-game mlb-sox">
+      <span class="nhl-time-et">Wed 7:10 PM</span>
+      <span class="nhl-time">Thu 1:10 AM</span>
+      <span class="nhl-match">CLE <span class="at">at</span> BOS <span class="mlb-tv">ESPN</span></span>
+      <span class="nhl-venue">Fenway Park</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Wed 10:10 PM</span>
+      <span class="nhl-time">Thu 4:10 AM</span>
+      <span class="nhl-match">SD <span class="at">at</span> LAD</span>
+      <span class="nhl-venue">Dodger Stadium</span>
+    </div>
+  </div>
+
+  <div class="nhl-day">
+    <div class="nhl-day-head">
+      <span class="nhl-day-date">Friday 25 September</span>
+      <span class="nhl-day-count">4 key games</span>
+    </div>
+    <div class="nhl-colhead"><span>Eastern</span><span>Macedonia</span><span>Matchup</span></div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Thu 6:05 PM</span>
+      <span class="nhl-time">Fri 12:05 AM</span>
+      <span class="nhl-match">MIL <span class="at">at</span> PHI</span>
+      <span class="nhl-venue">Citizens Bank Park</span>
+    </div>
+    <div class="nhl-game mlb-sox">
+      <span class="nhl-time-et">Thu 6:45 PM</span>
+      <span class="nhl-time">Fri 12:45 AM</span>
+      <span class="nhl-match">CLE <span class="at">at</span> BOS</span>
+      <span class="nhl-venue">Fenway Park</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Thu 7:05 PM</span>
+      <span class="nhl-time">Fri 1:05 AM</span>
+      <span class="nhl-match">TB <span class="at">at</span> NYY</span>
+      <span class="nhl-venue">Yankee Stadium</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Thu 10:10 PM</span>
+      <span class="nhl-time">Fri 4:10 AM</span>
+      <span class="nhl-match">SD <span class="at">at</span> LAD <span class="mlb-tv">MLB Network</span></span>
+      <span class="nhl-venue">Dodger Stadium</span>
+    </div>
+  </div>
+
+  <div class="nhl-day">
+    <div class="nhl-day-head">
+      <span class="nhl-day-date">Saturday 26 September</span>
+      <span class="nhl-day-count">4 key games</span>
+    </div>
+    <div class="nhl-colhead"><span>Eastern</span><span>Macedonia</span><span>Matchup</span></div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Fri 6:40 PM</span>
+      <span class="nhl-time">Sat 12:40 AM</span>
+      <span class="nhl-match">TB <span class="at">at</span> PHI</span>
+      <span class="nhl-venue">Citizens Bank Park</span>
+      <span class="mlb-stakes">Phillies’ last shot at catching Atlanta, and their wild-card seeding is still open.</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Fri 7:05 PM</span>
+      <span class="nhl-time">Sat 1:05 AM</span>
+      <span class="nhl-match">BAL <span class="at">at</span> NYY</span>
+      <span class="nhl-venue">Yankee Stadium</span>
+      <span class="mlb-stakes">Yankees need wins to catch Tampa Bay; Baltimore needs them to stay alive.</span>
+    </div>
+    <div class="nhl-game mlb-sox">
+      <span class="nhl-time-et">Fri 7:10 PM</span>
+      <span class="nhl-time">Sat 1:10 AM</span>
+      <span class="nhl-match">CHC <span class="at">at</span> BOS</span>
+      <span class="nhl-venue">Fenway Park</span>
+      <span class="mlb-stakes">Possible Wild Card preview. Both are likely wild cards, and the Cubs are tied for the NL’s #4 seed.</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Fri 9:40 PM</span>
+      <span class="nhl-time">Sat 3:40 AM</span>
+      <span class="nhl-match">AZ <span class="at">at</span> SD</span>
+      <span class="nhl-venue">Petco Park</span>
+      <span class="mlb-stakes">Arizona is 5 back of the NL wild card, so this is its last stand. San Diego is playing for home field.</span>
+    </div>
+  </div>
+
+  <div class="nhl-day">
+    <div class="nhl-day-head">
+      <span class="nhl-day-date">Sunday 27 September</span>
+      <span class="nhl-day-count">9 key games</span>
+    </div>
+    <div class="nhl-colhead"><span>Eastern</span><span>Macedonia</span><span>Matchup</span></div>
+    <div class="nhl-game mlb-sox">
+      <span class="nhl-time-et">Sat 7:15 PM</span>
+      <span class="nhl-time">Sun 1:15 AM</span>
+      <span class="nhl-match">CHC <span class="at">at</span> BOS</span>
+      <span class="nhl-venue">Fenway Park</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Sat 7:15 PM</span>
+      <span class="nhl-time">Sun 1:15 AM</span>
+      <span class="nhl-match">TB <span class="at">at</span> PHI <span class="mlb-tv">FOX</span></span>
+      <span class="nhl-venue">Citizens Bank Park</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Sat 7:15 PM</span>
+      <span class="nhl-time">Sun 1:15 AM</span>
+      <span class="nhl-match">BAL <span class="at">at</span> NYY <span class="mlb-tv">FOX</span></span>
+      <span class="nhl-venue">Yankee Stadium</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Sat 8:40 PM</span>
+      <span class="nhl-time">Sun 2:40 AM</span>
+      <span class="nhl-match">AZ <span class="at">at</span> SD</span>
+      <span class="nhl-venue">Petco Park</span>
+    </div>
+    <div class="nhl-game mlb-sox">
+      <span class="nhl-time-et">Sun 3:05 PM</span>
+      <span class="nhl-time">Sun 9:05 PM</span>
+      <span class="nhl-match">CHC <span class="at">at</span> BOS</span>
+      <span class="nhl-venue">Fenway Park</span>
+      <span class="mlb-stakes">Final day. Every game starts mid-afternoon Eastern, so all the races finish at once.</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Sun 3:05 PM</span>
+      <span class="nhl-time">Sun 9:05 PM</span>
+      <span class="nhl-match">TB <span class="at">at</span> PHI</span>
+      <span class="nhl-venue">Citizens Bank Park</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Sun 3:10 PM</span>
+      <span class="nhl-time">Sun 9:10 PM</span>
+      <span class="nhl-match">AZ <span class="at">at</span> SD</span>
+      <span class="nhl-venue">Petco Park</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Sun 3:10 PM</span>
+      <span class="nhl-time">Sun 9:10 PM</span>
+      <span class="nhl-match">COL <span class="at">at</span> CWS</span>
+      <span class="nhl-venue">Rate Field</span>
+      <span class="mlb-stakes">White Sox finish at home against Colorado; Cleveland finishes at Kansas City. The Central could come down to this afternoon.</span>
+    </div>
+    <div class="nhl-game">
+      <span class="nhl-time-et">Sun 3:20 PM</span>
+      <span class="nhl-time">Sun 9:20 PM</span>
+      <span class="nhl-match">BAL <span class="at">at</span> NYY</span>
+      <span class="nhl-venue">Yankee Stadium</span>
+    </div>
+  </div>
+
+  <div class="section-label">After you’re home</div>
+  <div class="mlb-races">
+    <div class="mlb-race"><span class="mlb-race-name">Division Series</span><span>Sat 3 – Sat 10 Oct · best of five</span></div>
+    <div class="mlb-race"><span class="mlb-race-name">LCS</span><span>NLCS from Sun 11 Oct, ALCS from Mon 12 Oct · best of seven</span></div>
+    <div class="mlb-race"><span class="mlb-race-name">World Series</span><span>Fri 23 – Sat 31 Oct · best of seven</span></div>
+  </div>
+
+</div>
+</div><!-- /panel-mlb -->
 
 
 <!-- ═══════════════════════════════════════
