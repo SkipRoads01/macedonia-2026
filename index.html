@@ -1447,6 +1447,7 @@ footer {
   <button class="tab-btn active" onclick="showTab('booking', this)">Booking Overview</button>
   <button class="tab-btn" onclick="showTab('flights', this)">Flights</button>
   <button class="tab-btn" onclick="showTab('itinerary', this)">Itinerary</button>
+  <button class="tab-btn" onclick="showTab('booksites', this)">Book Sites</button>
   <button class="tab-btn" onclick="showTab('map', this)">Route Map</button>
   <button class="tab-btn" onclick="showTab('research', this)">Research</button>
   <button class="tab-btn" onclick="showTab('cartography', this)">Cartography</button>
@@ -2877,6 +2878,120 @@ async function mlbLoad(force) {
 
 </div>
 </div><!-- /panel-itinerary -->
+
+
+<!-- ═══════════════════════════════════════
+     BOOK SITES
+════════════════════════════════════════ -->
+<div id="panel-booksites" class="panel">
+<div class="container">
+
+  <div class="section-label">Book sites</div>
+
+  <div style="background:white;border:1px solid var(--border);padding:0.9rem 1.1rem;margin-bottom:1.1rem;font-size:0.88rem;color:var(--muted);font-style:italic;line-height:1.7">
+    These are the places on this itinerary that Rebecca West describes in <span style="font-style:normal">Black Lamb and Grey Falcon</span>, based on the text of her Macedonia chapters. Where she describes a place without naming it, the entry says so.
+  </div>
+
+  <div class="day-block" id="bs-skopje">
+    <div class="day-header" onclick="toggleDay('bs-skopje')">
+      <div class="day-date">SEP 22<br>TUESDAY</div>
+      <div class="day-title">Skopje</div>
+      <div class="day-type">Six sites</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li><strong>Stone Bridge and the Vardar embankment.</strong> West crosses the bridge the morning after she arrives. On the cliff above stands the fortress, now called Kale, which she notes is on the site of a castle built by the Serbian Tsar Stephen Dushan.</li>
+        <li><strong>Old Bazaar.</strong> From the bridge she walks uphill into the Turkish quarter and describes its shops at length.</li>
+        <li><strong>Church of St. Spas.</strong> West doesn’t name it, but her description matches: a church sunk deep in the ground under Ottoman rules, with an iconostasis carved with Bible scenes by three brothers. She dates it to the seventeenth century.</li>
+        <li><strong>Mustafa Pasha Mosque (probable).</strong> She sits in the garden of a mosque on a terrace high above the town, with a saint’s tomb nearby, and calls it a famous sixteenth-century mosque. She doesn’t name it. Mustafa Pasha fits the location but dates to 1492, so this match is likely, not confirmed.</li>
+        <li><strong>A caravanserai and its baths.</strong> She tries to visit a great caravanserai with arcades around a marble courtyard and baths beside it, but finds it closed. She doesn’t name it.</li>
+        <li><strong>St. Panteleimon, Gorno Nerezi.</strong> The subject of her “Neresi” chapter.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="day-block" id="bs-kosovo">
+    <div class="day-header" onclick="toggleDay('bs-kosovo')">
+      <div class="day-date">SEP 23<br>WEDNESDAY</div>
+      <div class="day-title">Kosovo</div>
+      <div class="day-type">Three sites</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li><strong>Gračanica Monastery.</strong> The subject of her “Grachanitsa” chapter.</li>
+        <li><strong>Pristina.</strong> The subject of her “Prishtina” chapter.</li>
+        <li><strong>Plain of Kosovo.</strong> The drive to Gračanica and Pristina crosses the plain where the Serbs lost to the Ottomans in 1389. West gives it two chapters.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="day-block" id="bs-bitola">
+    <div class="day-header" onclick="toggleDay('bs-bitola')">
+      <div class="day-date">SEP 24–26<br>THU–SAT</div>
+      <div class="day-title">Bitola</div>
+      <div class="day-type">Four sites</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li><strong>The commercial quarter along the river.</strong> She describes two lines of shops on each side of a small river, shaded by acacias.</li>
+        <li><strong>Heraclea Lyncestis.</strong> Her driver takes her to the Roman ruins about a mile beyond the town, on the Via Egnatia. She then sits in the Orthodox cemetery on the hillside nearby.</li>
+        <li><strong>German First World War cemetery.</strong> A high circular wall on a hilltop above the town. West disliked it for looking like a fortress aimed at the city.</li>
+        <li><strong>French First World War cemetery.</strong> Out on the plain among willows and poplars, with seven thousand wooden crosses.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="day-block" id="bs-ohrid">
+    <div class="day-header" onclick="toggleDay('bs-ohrid')">
+      <div class="day-date">SEP 26–29<br>SAT–TUE</div>
+      <div class="day-title">Ohrid</div>
+      <div class="day-type">Four sites</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li><strong>St. Sophia.</strong> West praises its frescoes and notes that the Ottomans used it as a mosque for five hundred years. The lodging for this stay is on the same street.</li>
+        <li><strong>Holy Mother of God Peribleptos.</strong> West calls this church “Sveti Kliment” and stands inside it at the top of the old town. It’s a different church from St. Clement and St. Panteleimon at Plaošnik. St. Clement’s relics were kept at Peribleptos for centuries and moved to the rebuilt Plaošnik church in 2002, so Plaošnik in its present form didn’t exist when West visited.</li>
+        <li><strong>St. John at Kaneo.</strong> She walks the clifftop track to it and recalls an earlier visit, when she arrived by rowing boat for its feast day.</li>
+        <li><strong>Old town lanes and Samuel’s Fortress.</strong> She spends an afternoon among the old town’s seventeenth- and eighteenth-century houses, below the ruined fortress on the hill.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="day-block" id="bs-struga">
+    <div class="day-header" onclick="toggleDay('bs-struga')">
+      <div class="day-date">SEP 29<br>TUESDAY</div>
+      <div class="day-title">Struga</div>
+      <div class="day-type">One site</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li><strong>Struga.</strong> The drive north to Mavrovo passes through Struga, the subject of her chapter “Afternoon at Struga.”</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="day-block" id="bs-nearby">
+    <div class="day-header" onclick="toggleDay('bs-nearby')">
+      <div class="day-date">—</div>
+      <div class="day-title">Near the route, not on the itinerary</div>
+      <div class="day-type">Three entries</div>
+    </div>
+    <div class="day-content">
+      <ul class="activity-list">
+        <li><strong>Roman aqueduct, Skopje.</strong> West walks out to its ruins on the edge of town.</li>
+        <li><strong>Resen and Lake Prespa.</strong> She stops for lunch in Resen between Ohrid and Bitola and looks back at the lake from the pass.</li>
+        <li><strong>Matka, Bardovci, Sveti Naum, and Kajmakčalan.</strong> Each has its own chapter in the book.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">Source</div>
+  <div class="research-cite" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
+    Rebecca West, <em>Black Lamb and Grey Falcon: A Journey Through Yugoslavia</em> (1941), Macedonia chapters, as published online by macedonia.kroraina.com.
+  </div>
+
+</div>
+</div><!-- /panel-booksites -->
 
 
 <!-- ═══════════════════════════════════════
