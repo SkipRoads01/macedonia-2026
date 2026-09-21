@@ -906,6 +906,55 @@ mark.hl { background: #f0d870; color: var(--text); border-radius: 2px; padding: 
 }
 .activity-list li em { color: var(--muted); font-size: 0.87em; }
 
+/* ═══ ESTIMATED TIMES ═══ */
+/* Visit durations are estimates. Travel legs are routed distances and times
+   (OSRM), rounded, and carry no allowance for parking or finding the door. */
+.dur {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+  margin-left: 0.4rem;
+}
+.activity-list li.leg {
+  border-bottom: none;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.63rem;
+  letter-spacing: 0.05em;
+  color: var(--warm);
+}
+.activity-list li.leg::before {
+  content: '\2193';
+  color: var(--warm);
+  font-size: 0.95em;
+  top: 0.3rem;
+}
+.day-sum {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+.day-sum b { color: var(--gold); font-weight: 600; }
+.itin-note {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1.1rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.7;
+}
+
 .notes-field { margin-top: 0.75rem; }
 .notes-field label {
   font-family: 'Source Code Pro', monospace;
@@ -2698,7 +2747,9 @@ async function mlbLoad(force) {
 ════════════════════════════════════════ -->
 <div id="panel-itinerary" class="panel">
 <div class="container">
+<div class="itin-note">Visit lengths are estimates for an unhurried pace, not opening-hours commitments. Travel times are routed point to point with OSRM and Valhalla over OpenStreetMap data and rounded; where the two disagree the range spans both. Walking is figured at about 4 km/h on old-town streets. Nothing below allows for parking, queues at the Kosovo border, or the time it takes to find the right door.</div>
 
+  
   <div class="day-block" id="day-arrive">
     <div class="day-header" onclick="toggleDay('day-arrive')">
       <div class="day-date">SEP 21<br>MONDAY</div>
@@ -2707,11 +2758,13 @@ async function mlbLoad(force) {
     </div>
     <div class="day-content">
       <ul class="activity-list">
-        <li>Land at Skopje International Airport <em>(SKP — renamed from “Alexander the Great” in February 2018, ahead of the Prespa deal)</em></li>
-        <li>Pick up VW Taigo automatic at Europcar desk</li>
+        <li>Land at Skopje International Airport <em>(SKP — renamed from “Alexander the Great” in February 2018, ahead of the Prespa deal)</em><span class="dur">45 min through arrivals</span></li>
+        <li>Pick up VW Taigo automatic at Europcar desk<span class="dur">30 min</span></li>
+        <li class="leg">30 min drive to the centre · 23–30 km</li>
         <li>Check in, decompress</li>
         <li>Easy first evening — local dinner, early night <em>(long travel day)</em></li>
       </ul>
+      <div class="day-sum">Airport to hotel ~30 min · no sightseeing</div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-arrive" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2724,17 +2777,25 @@ async function mlbLoad(force) {
     </div>
     <div class="day-content">
       <ul class="activity-list">
-        <li>Old Bazaar <em>(Čaršija)</em> — Ottoman lanes, copper shops, coffee</li>
-        <li>Kale Fortress — views over the Vardar</li>
-        <li>Stone Bridge and riverside</li>
-        <li>Church of St. Spas <em>(sunk 2m below ground under Ottoman rule; carved walnut iconostasis, Mijak guild, 1819–24)</em></li>
-        <li><strong>St. Panteleimon at Gorno Nerezi</strong> — the <em>Skopje</em> one, 1164 <em>(15 min drive up Mt Vodno; the Lamentation frescoes Rebecca West describes. Not to be confused with St. Panteleimon at Plaošnik in Ohrid)</em></li>
-        <li><strong>Mustafa Pasha Mosque</strong> — 1492, on the terrace above the Old Bazaar; the finest Ottoman mosque in the country and largely unaltered</li>
-        <li><strong>Sultan Murad Mosque</strong> — 15th century, the oldest surviving mosque in Skopje, raised on the site of the monastery of St George destroyed when the Ottomans took the city in 1392</li>
-        <li>Skopje 2014 statuary — with appropriate skepticism</li>
-        <li>Long café afternoon with the book</li>
+        <li>Old Bazaar <em>(Čaršija)</em> — Ottoman lanes, copper shops, coffee<span class="dur">1–2 hrs</span></li>
+        <li class="leg">10 min walk · 700 m</li>
+        <li>Kale Fortress — views over the Vardar<span class="dur">45 min</span></li>
+        <li class="leg">10 min walk · 1.0 km, downhill</li>
+        <li>Stone Bridge and riverside<span class="dur">15 min</span></li>
+        <li class="leg">8 min walk · 600 m</li>
+        <li>Church of St. Spas <em>(sunk 2m below ground under Ottoman rule; carved walnut iconostasis, Mijak guild, 1819–24)</em><span class="dur">30 min</span></li>
+        <li class="leg">15–30 min drive · 8–13 km up Mt Vodno</li>
+        <li><strong>St. Panteleimon at Gorno Nerezi</strong> — the <em>Skopje</em> one, 1164 <em>(15–30 min drive up Mt Vodno; the Lamentation frescoes Rebecca West describes. Not to be confused with St. Panteleimon at Plaošnik in Ohrid)</em><span class="dur">45 min</span></li>
+        <li class="leg">15–30 min drive back down</li>
+        <li><strong>Mustafa Pasha Mosque</strong> — 1492, on the terrace above the Old Bazaar; the finest Ottoman mosque in the country and largely unaltered<span class="dur">30 min</span></li>
+        <li class="leg">10 min walk · 800 m</li>
+        <li><strong>Sultan Murad Mosque</strong> — 15th century, the oldest surviving mosque in Skopje, raised on the site of the monastery of St George destroyed when the Ottomans took the city in 1392<span class="dur">20 min</span></li>
+        <li class="leg">15 min walk · 1.4 km</li>
+        <li>Skopje 2014 statuary — with appropriate skepticism<span class="dur">30 min</span></li>
+        <li>Long café afternoon with the book<span class="dur">open-ended</span></li>
         <li><em>Visiting mosques: all of the above are working mosques, normally open to visitors outside the five prayer times — shoes off at the door, shoulders and knees covered, a headscarf for women.</em></li>
       </ul>
+      <div class="day-sum">Sites ~4½ hrs · walking ~45 min · Nerezi round trip 30–60 min by car</div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-skopje" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2748,11 +2809,15 @@ async function mlbLoad(force) {
     <div class="day-content">
       <ul class="activity-list">
         <li>Drive north from Skopje into Kosovo <em>(~1.5 hrs to Pristina)</em></li>
-        <li>Gračanica Monastery <em>(14th c. Serbian Orthodox — extraordinary frescoes; West's Balkans made visible)</em></li>
-        <li>Pristina — Mother Teresa Square, café, afternoon wander</li>
+        <li class="leg">1½ hrs · 88 km, plus the border queue</li>
+        <li>Gračanica Monastery <em>(14th c. Serbian Orthodox — extraordinary frescoes; West's Balkans made visible)</em><span class="dur">1 hr</span></li>
+        <li class="leg">15–25 min drive · 10 km</li>
+        <li>Pristina — Mother Teresa Square, café, afternoon wander<span class="dur">2–3 hrs</span></li>
+        <li class="leg">1½–1¾ hrs · 97 km, plus the border queue</li>
         <li>Return to Skopje by evening</li>
         <li><em>Bring passport. Kosovo uses EUR. West passed through this landscape in 1937.</em></li>
       </ul>
+      <div class="day-sum">Sites ~3–4 hrs · driving ~3½ hrs return, before border waits</div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-kosovo" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2761,16 +2826,19 @@ async function mlbLoad(force) {
     <div class="day-header" onclick="toggleDay('day-drive')">
       <div class="day-date">SEP 24<br>THURSDAY</div>
       <div class="day-title">Drive to Bitola</div>
-      <div class="day-type">Transit · ~2.5 hrs</div>
+      <div class="day-type">Transit · ~3 hrs</div>
     </div>
     <div class="day-content">
       <ul class="activity-list">
         <li>Check out of Skopje</li>
         <li>Drive south via Veles</li>
-        <li>Optional stop: Stobi <em>(Roman ruins, en route)</em></li>
+        <li class="leg">1¼ hrs · 82–89 km to the Stobi turn</li>
+        <li>Optional stop: Stobi <em>(Roman ruins, en route)</em><span class="dur">1–1½ hrs</span></li>
+        <li class="leg">2¼ hrs · 104 km on to Bitola</li>
         <li>Check in Bitola by afternoon</li>
         <li>First evening on Širok Sokak</li>
       </ul>
+      <div class="day-sum">Driving ~3 hrs direct · ~3½ hrs with Stobi and a stretch of legs</div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-drive" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2783,16 +2851,21 @@ async function mlbLoad(force) {
     </div>
     <div class="day-content">
       <ul class="activity-list">
-        <li>Širok Sokak — café culture, consular row, the boulevard life West describes</li>
-        <li>Heraclea Lyncestis <em>(Roman / Byzantine ruins just south; floor mosaics)</em></li>
-        <li>Clock Tower and old bazaar quarter</li>
-        <li>Church of Sveti Dimitrija</li>
-        <li><strong>Gazi Hajdar Kadi Mosque</strong> — 1561–62 by the inscription above the door, in the manner of <strong>Mimar Sinan</strong> but not among the works documented as his. Used as a warehouse under the old regime; restored with Turkish backing and reopened on 4 November 2016 after a hiatus of 104 years. The only mosque in Bitola built with two minarets, though only their bases survive</li>
-        <li><strong>Ishak Çelebi Mosque</strong> — 1506, the largest in Bitola, beside the old bazaar</li>
-        <li>Pelister National Park <em>(day hike, if energy allows)</em></li>
+        <li>Širok Sokak — café culture, consular row, the boulevard life West describes<span class="dur">open-ended</span></li>
+        <li class="leg">6–8 min drive · 3 km south</li>
+        <li>Heraclea Lyncestis <em>(Roman / Byzantine ruins just south; floor mosaics)</em><span class="dur">1½ hrs</span></li>
+        <li class="leg">7–9 min drive back into town</li>
+        <li>Clock Tower and old bazaar quarter<span class="dur">15 min</span></li>
+        <li>Church of Sveti Dimitrija<span class="dur">30 min</span></li>
+        <li class="leg">11 min walk · 900 m</li>
+        <li><strong>Gazi Hajdar Kadi Mosque</strong> — 1561–62 by the inscription above the door, in the manner of <strong>Mimar Sinan</strong> but not among the works documented as his. Used as a warehouse under the old regime; restored with Turkish backing and reopened on 4 November 2016 after a hiatus of 104 years. The only mosque in Bitola built with two minarets, though only their bases survive<span class="dur">20 min</span></li>
+        <li><strong>Ishak Çelebi Mosque</strong> — 1506, the largest in Bitola, beside the old bazaar<span class="dur">20 min</span></li>
+        <li class="leg">20–30 min drive · 16 km to the park gate</li>
+        <li>Pelister National Park <em>(day hike, if energy allows)</em><span class="dur">half day</span></li>
         <li>Sit with West's portrait of interwar Bitola over coffee</li>
         <li><em>Visiting mosques: both of the above are working mosques, normally open to visitors outside the five prayer times — shoes off at the door, shoulders and knees covered, a headscarf for women. Friday 25 September falls in this stay, and midday Friday is the busiest time of the week.</em></li>
       </ul>
+      <div class="day-sum">Town sites ~3 hrs · Heraclea round trip ~15 min by car · Pelister a half day on top</div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-bitola" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2806,11 +2879,15 @@ async function mlbLoad(force) {
     <div class="day-content">
       <ul class="activity-list">
         <li>Check out of Bitola</li>
-        <li>Treskavec Monastery <em>(dramatic hilltop above Prilep — short hike or rough track; worth it)</em></li>
-        <li>Prilep old town, briefly</li>
-        <li>Continue west to Ohrid ~2 hrs</li>
+        <li class="leg">1½ hrs · 54 km, the last stretch a rough track</li>
+        <li>Treskavec Monastery <em>(dramatic hilltop above Prilep — short hike or rough track; worth it)</em><span class="dur">2 hrs with the approach</span></li>
+        <li class="leg">30 min drive · 13 km down to Prilep</li>
+        <li>Prilep old town, briefly<span class="dur">45 min</span></li>
+        <li class="leg">2–2½ hrs · 110–125 km west to Ohrid</li>
+        <li>Continue west to Ohrid ~2–2½ hrs</li>
         <li>Check in by late afternoon — first look at the lake</li>
       </ul>
+      <div class="day-sum">Sites ~2¾ hrs · driving ~4¼ hrs across the day</div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-treskavec" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2823,16 +2900,24 @@ async function mlbLoad(force) {
     </div>
     <div class="day-content">
       <ul class="activity-list">
-        <li>Old town — medieval lanes climbing from the lake</li>
-        <li>Church of St. John at Kaneo <em>(the iconic lakeside church; early morning)</em></li>
-        <li><strong>St. Clement and St. Panteleimon at Plaošnik</strong> — the <em>Ohrid</em> one, 893 <em>(built by St. Clement on a 5th–6th century basilica; site of the Ohrid Literary School, which taught some 3,500 students. A different church from St. Panteleimon at Nerezi near Skopje)</em></li>
-        <li>Samuel's Fortress — views over the lake</li>
-        <li><strong>Hadži Turgut (Cross) Mosque</strong> — 1466, the oldest in Ohrid, on the site of the church of St Kyriakia; a small cross sits inside the crescent on the minaret</li>
-        <li><strong>Ali Pasha Mosque</strong> — 1573, in the old bazaar quarter</li>
-        <li>Icon Gallery and National Museum</li>
-        <li>Vevčani village <em>(half-day; natural springs, stone houses, deeply traditional)</em></li>
+        <li>Old town — medieval lanes climbing from the lake<span class="dur">open-ended</span></li>
+        <li class="leg">20 min walk · 1.6 km along the shore</li>
+        <li>Church of St. John at Kaneo <em>(the iconic lakeside church; early morning)</em><span class="dur">30 min</span></li>
+        <li class="leg">13 min walk · 800 m uphill</li>
+        <li><strong>St. Clement and St. Panteleimon at Plaošnik</strong> — the <em>Ohrid</em> one, 893 <em>(built by St. Clement on a 5th–6th century basilica; site of the Ohrid Literary School, which taught some 3,500 students. A different church from St. Panteleimon at Nerezi near Skopje)</em><span class="dur">45 min</span></li>
+        <li class="leg">8 min walk · 500 m</li>
+        <li>Samuel's Fortress — views over the lake<span class="dur">45 min</span></li>
+        <li class="leg">20 min walk · 1.5 km back down</li>
+        <li><strong>Hadži Turgut (Cross) Mosque</strong> — 1466, the oldest in Ohrid, on the site of the church of St Kyriakia; a small cross sits inside the crescent on the minaret<span class="dur">20 min</span></li>
+        <li class="leg">7 min walk · 600 m</li>
+        <li><strong>Ali Pasha Mosque</strong> — 1573, in the old bazaar quarter<span class="dur">20 min</span></li>
+        <li class="leg">10 min walk · 700 m</li>
+        <li>Icon Gallery and National Museum<span class="dur">1 hr</span></li>
+        <li class="leg">30–40 min drive · 26 km</li>
+        <li>Vevčani village <em>(half-day; natural springs, stone houses, deeply traditional)</em><span class="dur">half day</span></li>
         <li>Long walks along the shore; lakeside cafés; boat trip if the mood strikes</li>
       </ul>
+      <div class="day-sum">Old-town circuit ~3½ hrs of sites · ~1½ hrs walking · Vevčani a half day by car</div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-ohrid" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2846,12 +2931,16 @@ async function mlbLoad(force) {
     <div class="day-content">
       <ul class="activity-list">
         <li>Drive north from Ohrid into the Mavrovo highlands <em>(118 km via Struga and Debar — allow 2½ hrs, not 1½; mountain road most of the way)</em></li>
-        <li><strong>Monastery of St. John Bigorski</strong> <em>(the carved iconostasis is 1829–35, by Petre Filipovski-Garkata and Makarije Frčkovski of Galičnik — the same Mijak workshop as St. Spas in Skopje)</em></li>
-        <li>Galicnik village <em>(above Mavrovo; stone village, extraordinary views, early autumn)</em></li>
-        <li>Mavrovo Lake and national park walks</li>
+        <li class="leg">1½–1¾ hrs · 90 km as far as Bigorski</li>
+        <li><strong>Monastery of St. John Bigorski</strong> <em>(the carved iconostasis is 1829–35, by Petre Filipovski-Garkata and Makarije Frčkovski of Galičnik — the same Mijak workshop as St. Spas in Skopje)</em><span class="dur">1 hr</span></li>
+        <li class="leg">1–1¼ hrs · 44 km on mountain road</li>
+        <li>Galicnik village <em>(above Mavrovo; stone village, extraordinary views, early autumn)</em><span class="dur">1½ hrs</span></li>
+        <li class="leg">25–40 min drive · 23 km</li>
+        <li>Mavrovo Lake and national park walks<span class="dur">half day</span></li>
         <li>Autumn colours in the highlands — peak season</li>
         <li>The most remote and quiet leg of the trip</li>
       </ul>
+      <div class="day-sum">Sites ~3½ hrs · driving ~3 hrs spread over the arrival day</div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-mavrovo" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2865,7 +2954,9 @@ async function mlbLoad(force) {
     <div class="day-content">
       <ul class="activity-list">
         <li>Drive back to Skopje ~2 hrs <em>(Thu Oct 1)</em></li>
-        <li><strong>Painted Mosque (Šarena Džamija), Tetovo</strong> — founded 1438 by two sisters, Huršida and Mensure; rebuilt 1833 and painted inside and out with floral and geometric work by masters from <em>Debar</em>, the same craft region that carved the Bigorski iconostasis. Going via Tetovo adds about 5 km and 7 minutes</li>
+        <li class="leg">1¼ hrs · 54–60 km to Tetovo</li>
+        <li><strong>Painted Mosque (Šarena Džamija), Tetovo</strong> — founded 1438 by two sisters, Huršida and Mensure; rebuilt 1833 and painted inside and out with floral and geometric work by masters from <em>Debar</em>, the same craft region that carved the Bigorski iconostasis. Going via Tetovo adds about 5 km and 7 minutes<span class="dur">30 min</span></li>
+        <li class="leg">45–55 min · 45–56 km on to Skopje</li>
         <li>Final afternoon — anything missed, last café, last walk</li>
         <li>Early night — the flight leaves before dawn</li>
         <li>Leave for the airport ~02:00 <em>(Fri Oct 2)</em></li>
@@ -2873,6 +2964,7 @@ async function mlbLoad(force) {
         <li>Depart SKP 04:25 → VIE → BOS <em>(OS 764 / OS 031, Austrian Airlines)</em></li>
         <li>Land Boston 13:50 <em>(Terminal E, same day)</em></li>
       </ul>
+      <div class="day-sum">Driving ~2–2¼ hrs with the Tetovo stop · mosque ~30 min</div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-return" placeholder=""></textarea></div>
     </div>
   </div>
