@@ -933,6 +933,15 @@ mark.hl { background: #f0d870; color: var(--text); border-radius: 2px; padding: 
   font-size: 0.95em;
   top: 0.3rem;
 }
+.nav-block{border-top:1px solid var(--border);padding-top:.7rem;margin-bottom:.9rem}
+.nav-block h4{font-family:'Source Code Pro',monospace;font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:0 0 .55rem}
+.nav-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35rem .6rem;padding:.3rem 0;border-bottom:1px dotted var(--border)}
+.nav-row:last-child{border-bottom:none}
+.nav-name{flex:1 1 11rem;font-size:.82rem}
+.nav-name em{color:var(--muted);font-style:normal;font-size:.72rem;display:block}
+.nav-coord{font-family:'Source Code Pro',monospace;font-size:.68rem;color:var(--muted);user-select:all}
+.nav-links a{font-family:'Source Code Pro',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--border);margin-left:.5rem}
+.nav-flag{font-size:.72rem;color:var(--amber);margin-top:.5rem}
 .day-sum {
   font-family: 'Source Code Pro', monospace;
   font-size: 0.6rem;
@@ -2765,6 +2774,9 @@ async function mlbLoad(force) {
         <li>Easy first evening — local dinner, early night <em>(long travel day)</em></li>
       </ul>
       <div class="day-sum">Airport to hotel ~30 min · no sightseeing</div>
+      <div class="nav-block"><h4>Navigation</h4>
+        <div class="nav-row"><div class="nav-name">Skopje International Airport (SKP)</div><div class="nav-coord">41.960864, 21.627310</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.960864%2C21.627310" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.960864%2C21.627310&navigate=yes" target="_blank">Waze</a></div></div>
+      </div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-arrive" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2792,10 +2804,24 @@ async function mlbLoad(force) {
         <li><strong>Sultan Murad Mosque</strong> — 15th century, the oldest surviving mosque in Skopje, raised on the site of the monastery of St George destroyed when the Ottomans took the city in 1392<span class="dur">20 min</span></li>
         <li class="leg">15 min walk · 1.4 km</li>
         <li>Skopje 2014 statuary — with appropriate skepticism<span class="dur">30 min</span></li>
+        <li class="leg">~1 hr drive east · ~70 km via the E-75 and Sveti Nikole <em>(estimate, not routed)</em></li>
+        <li><strong>Govedarov Kamen — the Sheep’s Field stone</strong> — the rock of the black lamb sacrifice on Ovče Pole, between Erdželija and Peširovo <em>(West’s “Cowherd’s Rock” on the “Sheep’s Field” in St. George’s Eve: II. Open farmland, no gate, no signage. The rite falls 5–6 May)</em><span class="dur">20–30 min</span></li>
+        <li class="leg">~1 hr drive back to Skopje</li>
         <li>Long café afternoon with the book<span class="dur">open-ended</span></li>
         <li><em>Visiting mosques: all of the above are working mosques, normally open to visitors outside the five prayer times — shoes off at the door, shoulders and knees covered, a headscarf for women.</em></li>
       </ul>
-      <div class="day-sum">Sites ~4½ hrs · walking ~45 min · Nerezi round trip 30–60 min by car</div>
+      <div class="day-sum">Sites ~4½ hrs · walking ~45 min · Nerezi round trip 30–60 min by car · Ovče Pole round trip ~2 hrs driving</div>
+      <div class="nav-block"><h4>Navigation</h4>
+        <div class="nav-row"><div class="nav-name">Old Bazaar</div><div class="nav-coord">42.000775, 21.436740</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=42.000775%2C21.436740" target="_blank">Maps</a><a href="https://waze.com/ul?ll=42.000775%2C21.436740&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Kale Fortress<em>enter via rear car park</em></div><div class="nav-coord">42.001919, 21.432581</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=42.001919%2C21.432581" target="_blank">Maps</a><a href="https://waze.com/ul?ll=42.001919%2C21.432581&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Stone Bridge</div><div class="nav-coord">41.997215, 21.433368</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.997215%2C21.433368" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.997215%2C21.433368&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">St. Spas<em>closed Sat–Sun</em></div><div class="nav-coord">42.000725, 21.435747</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=42.000725%2C21.435747" target="_blank">Maps</a><a href="https://waze.com/ul?ll=42.000725%2C21.435747&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Mustafa Pasha Mosque</div><div class="nav-coord">42.002025, 21.435419</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=42.002025%2C21.435419" target="_blank">Maps</a><a href="https://waze.com/ul?ll=42.002025%2C21.435419&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Sultan Murad Mosque</div><div class="nav-coord">42.001543, 21.441385</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=42.001543%2C21.441385" target="_blank">Maps</a><a href="https://waze.com/ul?ll=42.001543%2C21.441385&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Macedonia Square</div><div class="nav-coord">41.997208, 21.433100</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.997208%2C21.433100" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.997208%2C21.433100&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">St. Panteleimon Gorno Nerezi</div><div class="nav-coord">41.976895, 21.374484</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.976895%2C21.374484" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.976895%2C21.374484&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Govedarov Kamen<em>open farmland, unpaved last stretch</em></div><div class="nav-coord">41.842265, 21.995875</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.842265%2C21.995875" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.842265%2C21.995875&navigate=yes" target="_blank">Waze</a></div></div>
+      </div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-skopje" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2818,6 +2844,10 @@ async function mlbLoad(force) {
         <li><em>Bring passport. Kosovo uses EUR. West passed through this landscape in 1937.</em></li>
       </ul>
       <div class="day-sum">Sites ~3–4 hrs · driving ~3½ hrs return, before border waits</div>
+      <div class="nav-block"><h4>Navigation</h4>
+        <div class="nav-row"><div class="nav-name">Gračanica Monastery<em>euros only</em></div><div class="nav-coord">42.598488, 21.193484</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=42.598488%2C21.193484" target="_blank">Maps</a><a href="https://waze.com/ul?ll=42.598488%2C21.193484&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Mother Teresa Square Pristina</div><div class="nav-coord">42.661902, 21.162548</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=42.661902%2C21.162548" target="_blank">Maps</a><a href="https://waze.com/ul?ll=42.661902%2C21.162548&navigate=yes" target="_blank">Waze</a></div></div>
+      </div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-kosovo" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2839,6 +2869,10 @@ async function mlbLoad(force) {
         <li>First evening on Širok Sokak</li>
       </ul>
       <div class="day-sum">Driving ~3 hrs direct · ~3½ hrs with Stobi and a stretch of legs</div>
+      <div class="nav-block"><h4>Navigation</h4>
+        <div class="nav-row"><div class="nav-name">Stobi</div><div class="nav-coord">41.550699, 21.974791</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.550699%2C21.974791" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.550699%2C21.974791&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Širok Sokak Bitola</div><div class="nav-coord">41.027484, 21.336412</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.027484%2C21.336412" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.027484%2C21.336412&navigate=yes" target="_blank">Waze</a></div></div>
+      </div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-drive" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2866,6 +2900,16 @@ async function mlbLoad(force) {
         <li><em>Visiting mosques: both of the above are working mosques, normally open to visitors outside the five prayer times — shoes off at the door, shoulders and knees covered, a headscarf for women. Friday 25 September falls in this stay, and midday Friday is the busiest time of the week.</em></li>
       </ul>
       <div class="day-sum">Town sites ~3 hrs · Heraclea round trip ~15 min by car · Pelister a half day on top</div>
+      <div class="nav-block"><h4>Navigation</h4>
+        <div class="nav-row"><div class="nav-name">Heraclea Lyncestis</div><div class="nav-coord">41.011112, 21.342342</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.011112%2C21.342342" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.011112%2C21.342342&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Clock Tower</div><div class="nav-coord">41.030838, 21.333933</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.030838%2C21.333933" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.030838%2C21.333933&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">St. Dimitrija</div><div class="nav-coord">41.029916, 21.334183</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.029916%2C21.334183" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.029916%2C21.334183&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Gazi Hajdar Kadi Mosque</div><div class="nav-coord">41.033690, 21.337088</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.033690%2C21.337088" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.033690%2C21.337088&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Ishak Çelebi Mosque</div><div class="nav-coord">41.032094, 21.334095</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.032094%2C21.334095" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.032094%2C21.334095&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">German WWI cemetery</div><div class="nav-coord">41.035757, 21.317332</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.035757%2C21.317332" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.035757%2C21.317332&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">French WWI cemetery<em>Mon–Fri, access may need arranging</em></div><div class="nav-coord">41.040397, 21.359384</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.040397%2C21.359384" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.040397%2C21.359384&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Pelister NP</div><div class="nav-coord">41.001455, 21.212962</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.001455%2C21.212962" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.001455%2C21.212962&navigate=yes" target="_blank">Waze</a></div></div>
+      </div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-bitola" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2888,6 +2932,10 @@ async function mlbLoad(force) {
         <li>Check in by late afternoon — first look at the lake</li>
       </ul>
       <div class="day-sum">Sites ~2¾ hrs · driving ~4¼ hrs across the day</div>
+      <div class="nav-block"><h4>Navigation</h4>
+        <div class="nav-row"><div class="nav-name">Treskavec Monastery<em>park below, last 400m on foot</em></div><div class="nav-coord">41.403802, 21.538259</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.403802%2C21.538259" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.403802%2C21.538259&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Prilep clock tower</div><div class="nav-coord">41.345940, 21.555066</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.345940%2C21.555066" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.345940%2C21.555066&navigate=yes" target="_blank">Waze</a></div></div>
+      </div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-treskavec" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2918,6 +2966,17 @@ async function mlbLoad(force) {
         <li>Long walks along the shore; lakeside cafés; boat trip if the mood strikes</li>
       </ul>
       <div class="day-sum">Old-town circuit ~3½ hrs of sites · ~1½ hrs walking · Vevčani a half day by car</div>
+      <div class="nav-block"><h4>Navigation</h4>
+        <div class="nav-row"><div class="nav-name">St. John at Kaneo</div><div class="nav-coord">41.111075, 20.788751</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.111075%2C20.788751" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.111075%2C20.788751&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Plaošnik</div><div class="nav-coord">41.112455, 20.791014</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.112455%2C20.791014" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.112455%2C20.791014&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Samuel's Fortress</div><div class="nav-coord">41.115183, 20.790845</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.115183%2C20.790845" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.115183%2C20.790845&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">St. Sophia</div><div class="nav-coord">41.112072, 20.794037</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.112072%2C20.794037" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.112072%2C20.794037&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Peribleptos<em>closed Sat–Sun</em></div><div class="nav-coord">41.114201, 20.795456</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.114201%2C20.795456" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.114201%2C20.795456&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Icon Gallery<em>closed Mon, mornings only</em></div><div class="nav-coord">41.114275, 20.795302</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.114275%2C20.795302" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.114275%2C20.795302&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Ali Pasha Mosque</div><div class="nav-coord">41.115497, 20.800493</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.115497%2C20.800493" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.115497%2C20.800493&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Vevčani Springs<em>cash</em></div><div class="nav-coord">41.239348, 20.585202</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.239348%2C20.585202" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.239348%2C20.585202&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-flag">Hadži Turgut (Cross) Mosque — no reliable map pin; ask in the old bazaar.</div>
+      </div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-ohrid" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2941,6 +3000,12 @@ async function mlbLoad(force) {
         <li>The most remote and quiet leg of the trip</li>
       </ul>
       <div class="day-sum">Sites ~3½ hrs · driving ~3 hrs spread over the arrival day</div>
+      <div class="nav-block"><h4>Navigation</h4>
+        <div class="nav-row"><div class="nav-name">Struga centre</div><div class="nav-coord">41.176846, 20.673786</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.176846%2C20.673786" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.176846%2C20.673786&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Bigorski Monastery</div><div class="nav-coord">41.621182, 20.609424</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.621182%2C20.609424" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.621182%2C20.609424&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Galičnik</div><div class="nav-coord">41.594532, 20.651159</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.594532%2C20.651159" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.594532%2C20.651159&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Mavrovo Lake</div><div class="nav-coord">41.703385, 20.777807</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.703385%2C20.777807" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.703385%2C20.777807&navigate=yes" target="_blank">Waze</a></div></div>
+      </div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-mavrovo" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2965,6 +3030,11 @@ async function mlbLoad(force) {
         <li>Land Boston 13:50 <em>(Terminal E, same day)</em></li>
       </ul>
       <div class="day-sum">Driving ~2–2¼ hrs with the Tetovo stop · mosque ~30 min</div>
+      <div class="nav-block"><h4>Navigation</h4>
+        <div class="nav-row"><div class="nav-name">Painted Mosque Tetovo</div><div class="nav-coord">42.005796, 20.966764</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=42.005796%2C20.966764" target="_blank">Maps</a><a href="https://waze.com/ul?ll=42.005796%2C20.966764&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Roman aqueduct Skopje</div><div class="nav-coord">42.022411, 21.418865</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=42.022411%2C21.418865" target="_blank">Maps</a><a href="https://waze.com/ul?ll=42.022411%2C21.418865&navigate=yes" target="_blank">Waze</a></div></div>
+        <div class="nav-row"><div class="nav-name">Skopje airport</div><div class="nav-coord">41.960864, 21.627310</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.960864%2C21.627310" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.960864%2C21.627310&navigate=yes" target="_blank">Waze</a></div></div>
+      </div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-return" placeholder=""></textarea></div>
     </div>
   </div>
@@ -2999,6 +3069,7 @@ async function mlbLoad(force) {
         <li><strong>Mustafa Pasha Mosque (probable).</strong> She sits in the garden of a mosque on a terrace high above the town, with a saint’s tomb nearby, and calls it a famous sixteenth-century mosque. She doesn’t name it. Mustafa Pasha fits the location but dates to 1492, so this match is likely, not confirmed.</li>
         <li><strong>A caravanserai and its baths.</strong> She tries to visit a great caravanserai with arcades around a marble courtyard and baths beside it, but finds it closed. She doesn’t name it.</li>
         <li><strong>St. Panteleimon, Gorno Nerezi.</strong> The subject of her “Neresi” chapter.</li>
+        <li><strong>Govedarov Kamen, Ovče Pole.</strong> The stone of the black lamb sacrifice, reached at dawn on St. George’s Eve. She names the plain the Sheep’s Field and the rock the Cowherd’s Rock.</li>
       </ul>
     </div>
   </div>
