@@ -1514,9 +1514,9 @@ footer {
 
 <!-- ═══ TABS ═══ -->
 <nav class="tab-bar">
-  <button class="tab-btn active" onclick="showTab('booking', this)">Booking Overview</button>
+  <button class="tab-btn" onclick="showTab('booking', this)">Booking Overview</button>
   <button class="tab-btn" onclick="showTab('flights', this)">Flights</button>
-  <button class="tab-btn" onclick="showTab('itinerary', this)">Itinerary</button>
+  <button class="tab-btn active" onclick="showTab('itinerary', this)">Itinerary</button>
   <button class="tab-btn" onclick="showTab('booksites', this)">Book Sites</button>
   <button class="tab-btn" onclick="showTab('map', this)">Route Map</button>
   <button class="tab-btn" onclick="showTab('research', this)">Research</button>
@@ -1528,7 +1528,7 @@ footer {
 <!-- ═══════════════════════════════════════
      BOOKING OVERVIEW
 ════════════════════════════════════════ -->
-<div id="panel-booking" class="panel active">
+<div id="panel-booking" class="panel">
 <div class="container">
 
   <div class="section-label">North Macedonia</div>
@@ -2766,7 +2766,7 @@ async function mlbLoad(force) {
 <!-- ═══════════════════════════════════════
      ITINERARY
 ════════════════════════════════════════ -->
-<div id="panel-itinerary" class="panel">
+<div id="panel-itinerary" class="panel active">
 <div class="container">
 <div class="itin-note">Visit lengths are estimates for an unhurried pace, not opening-hours commitments. Travel times are routed point to point with OSRM and Valhalla over OpenStreetMap data and rounded; where the two disagree the range spans both. Walking is figured at about 4 km/h on old-town streets. Nothing below allows for parking, queues at the Kosovo border, or the time it takes to find the right door.</div>
 
