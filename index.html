@@ -1645,13 +1645,13 @@ footer {
   <div class="booking-card" id="bc-treskavec">
     <div class="booking-summary" onclick="toggleCard('bc-treskavec')">
       <div class="bk-dates">SEP 26</div>
-      <div class="bk-place">Bitola → Ohrid via Treskavec</div>
-      <div class="bk-nights">via Prilep</div>
+      <div class="bk-place">Bitola → Ohrid</div>
+      <div class="bk-nights">70 km</div>
       <div class="status-pill pill-transit">Transit</div>
     </div>
     <div class="booking-detail">
       <div class="detail-grid full">
-        <div class="field"><label>Notes</label><textarea id="notes-treskavec" placeholder="Treskavec access road conditions, Ohrid check-in time…"></textarea></div>
+        <div class="field"><label>Notes</label><textarea id="notes-treskavec" placeholder="Ohrid check-in time…"></textarea></div>
       </div>
     </div>
   </div>
@@ -2913,25 +2913,16 @@ async function mlbLoad(force) {
   <div class="day-block" id="day-treskavec">
     <div class="day-header" onclick="toggleDay('day-treskavec')">
       <div class="day-date">SEP 26<br>SATURDAY</div>
-      <div class="day-title">Bitola → Ohrid via Treskavec</div>
-      <div class="day-type">Transit · via Prilep</div>
+      <div class="day-title">Bitola → Ohrid</div>
+      <div class="day-type">Transit · 70 km</div>
     </div>
     <div class="day-content">
       <ul class="activity-list">
         <li class="chk"><input type="checkbox" class="chk-box" id="done-treskavec-1"><span class="chk-txt">Check out of Bitola</span></li>
-        <li class="leg">1½ hrs · 54 km, the last stretch a rough track</li>
-        <li class="chk"><input type="checkbox" class="chk-box" id="done-treskavec-2"><span class="chk-txt">Treskavec Monastery <em>(dramatic hilltop above Prilep — short hike or rough track; worth it)</em></span><span class="dur">2 hrs with the approach</span></li>
-        <li class="leg">30 min drive · 13 km down to Prilep</li>
-        <li class="chk"><input type="checkbox" class="chk-box" id="done-treskavec-3"><span class="chk-txt">Prilep old town, briefly</span><span class="dur">45 min</span></li>
-        <li class="leg">2–2½ hrs · 110–125 km west to Ohrid</li>
-        <li class="chk"><input type="checkbox" class="chk-box" id="done-treskavec-4"><span class="chk-txt">Continue west to Ohrid ~2–2½ hrs</span></li>
+        <li class="leg">1½ hrs · 70 km west, straight through</li>
         <li class="chk"><input type="checkbox" class="chk-box" id="done-treskavec-5"><span class="chk-txt">Check in by late afternoon — first look at the lake</span></li>
       </ul>
-      <div class="day-sum">Sites ~2¾ hrs · driving ~4¼ hrs across the day</div>
-      <div class="nav-block"><h4>Navigation</h4>
-        <div class="nav-row"><div class="nav-name">Treskavec Monastery<em>park below, last 400m on foot</em></div><div class="nav-coord">41.403802, 21.538259</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.403802%2C21.538259" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.403802%2C21.538259&navigate=yes" target="_blank">Waze</a></div></div>
-        <div class="nav-row"><div class="nav-name">Prilep clock tower</div><div class="nav-coord">41.345940, 21.555066</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.345940%2C21.555066" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.345940%2C21.555066&navigate=yes" target="_blank">Waze</a></div></div>
-      </div>
+      <div class="day-sum">Driving ~1½ hrs · 70 km · a short day, the lake by mid-afternoon</div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-treskavec" placeholder=""></textarea></div>
     </div>
   </div>
@@ -3176,7 +3167,6 @@ async function mlbLoad(force) {
       <div><span style="color:var(--gold);font-weight:700">①</span> &nbsp;Skopje <span>Sep 21–24</span></div>
       <div><span style="color:var(--amber)">↗</span> &nbsp;Kosovo <span>Sep 23 — day trip</span></div>
       <div><span style="color:var(--gold);font-weight:700">②</span> &nbsp;Bitola <span>Sep 24–26</span></div>
-      <div><span style="color:var(--amber)">↗</span> &nbsp;Treskavec <span>Sep 26 — en route</span></div>
       <div><span style="color:var(--gold);font-weight:700">③</span> &nbsp;Ohrid <span>Sep 26–29</span></div>
       <div><span style="color:var(--gold);font-weight:700">④</span> &nbsp;Mavrovo / Bigorski <span>Sep 29–Oct 1</span></div>
       <div><span style="color:var(--gold);font-weight:700">⑤</span> &nbsp;Skopje return <span>Oct 1–2</span></div>
@@ -3752,7 +3742,6 @@ function initMap() {
     { lat:41.9973, lng:21.4280, label:'Skopje',               dates:'Sep 21–24',           num:'①', main:true },
     { lat:42.6014, lng:21.1914, label:'Gračanica (Kosovo)',    dates:'Sep 23 — day trip',   num:'↗', main:false },
     { lat:41.0297, lng:21.3294, label:'Bitola',                dates:'Sep 24–26',           num:'②', main:true },
-    { lat:41.3317, lng:21.5583, label:'Treskavec Monastery',   dates:'Sep 26 — en route',   num:'↗', main:false },
     { lat:41.1172, lng:20.8016, label:'Ohrid',                 dates:'Sep 26–29',           num:'③', main:true },
     { lat:41.6072, lng:20.7356, label:'Mavrovo / Bigorski',    dates:'Sep 29–Oct 1',        num:'④', main:true }
   ];
