@@ -1607,7 +1607,7 @@ footer {
     </div>
     <div class="booking-detail">
       <div class="detail-grid full">
-        <div class="field"><label>Notes</label><textarea id="notes-drive" placeholder="Route, Stobi stop (Roman ruins, en route), timing…"></textarea></div>
+        <div class="field"><label>Notes</label><textarea id="notes-drive" placeholder="Route, timing…"></textarea></div>
       </div>
     </div>
   </div>
@@ -2859,16 +2859,13 @@ async function mlbLoad(force) {
         <li class="chk"><input type="checkbox" class="chk-box" id="done-drive-1"><span class="chk-txt">Check out of Skopje</span></li>
         <li class="leg">~55 min · 68 km east to Ovče Pole</li>
         <li class="chk"><input type="checkbox" class="chk-box" id="done-drive-6"><span class="chk-txt"><strong>Govedarov Kamen — the Sheep’s Field stone</strong> — the rock of the black lamb sacrifice on Ovče Pole, between Erdželija and Peširovo <em>(West’s “Cowherd’s Rock” on the “Sheep’s Field” in St. George’s Eve: II. Open farmland, no gate, no signage. The rite falls 5–6 May)</em></span><span class="dur">20–30 min</span></li>
-        <li class="leg">~50 min · 60 km south to Stobi</li>
-        <li class="chk"><input type="checkbox" class="chk-box" id="done-drive-3"><span class="chk-txt">Optional stop: Stobi <em>(Roman ruins, en route)</em></span><span class="dur">1–1½ hrs</span></li>
-        <li class="leg">2¼ hrs · 104 km on to Bitola</li>
-        <li class="chk"><input type="checkbox" class="chk-box" id="done-drive-4"><span class="chk-txt">Check in Bitola <em>(check-in is 3pm; earlier is usually fine but not guaranteed)</em></span></li>
+        <li class="leg">~3 hrs · 154 km southwest to Bitola</li>
+        <li class="chk"><input type="checkbox" class="chk-box" id="done-drive-4"><span class="chk-txt">Check in Bitola <em>(Hotel Ambasador, Belgradska 2a — check-in from 1pm)</em></span></li>
         <li class="chk"><input type="checkbox" class="chk-box" id="done-drive-5"><span class="chk-txt">First evening on Širok Sokak</span></li>
       </ul>
-      <div class="day-sum">Driving ~4 hrs with the rock and Stobi · leave by 9am for a 3pm check-in</div>
+      <div class="day-sum">Driving ~3¾ hrs with the rock · check-in from 1pm</div>
       <div class="nav-block"><h4>Navigation</h4>
         <div class="nav-row"><div class="nav-name">Govedarov Kamen<em>open farmland, unpaved last stretch</em></div><div class="nav-coord">41.842265, 21.995875</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.842265%2C21.995875" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.842265%2C21.995875&navigate=yes" target="_blank">Waze</a></div></div>
-        <div class="nav-row"><div class="nav-name">Stobi</div><div class="nav-coord">41.550699, 21.974791</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.550699%2C21.974791" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.550699%2C21.974791&navigate=yes" target="_blank">Waze</a></div></div>
         <div class="nav-row"><div class="nav-name">Širok Sokak Bitola</div><div class="nav-coord">41.027484, 21.336412</div><div class="nav-links"><a href="https://www.google.com/maps/search/?api=1&query=41.027484%2C21.336412" target="_blank">Maps</a><a href="https://waze.com/ul?ll=41.027484%2C21.336412&navigate=yes" target="_blank">Waze</a></div></div>
       </div>
       <div class="notes-field"><label>Notes</label><textarea id="itin-notes-drive" placeholder=""></textarea></div>
@@ -3858,21 +3855,30 @@ function saveAll(quiet) {
   if (!quiet) showToast('Changes saved');
 }
 
+// Bump SEED whenever a tick is set directly in the markup. Without it a device
+// that had already stored that id as false loads its own false back over the
+// checked attribute, silently unticking it again on every visit.
+const SEED = '2026-09-25a';
+
 function loadAll() {
   try {
+    const fresh = localStorage.getItem('mac2026-seed') !== SEED;
     const saved = localStorage.getItem('mac2026');
+    if (fresh) localStorage.setItem('mac2026-seed', SEED);
     if (!saved) return;
     const data = JSON.parse(saved);
     Object.entries(data).forEach(([id, val]) => {
       const el = document.getElementById(id);
       if (!el) return;
       if (el.type === 'checkbox') {
-        el.checked = !!val;
+        // on a new seed the markup wins once; after that the device governs
+        el.checked = (fresh && el.defaultChecked) ? true : !!val;
         el.closest('li')?.classList.toggle('done', el.checked);
       } else {
         el.value = val;
       }
     });
+    if (fresh) setTimeout(() => saveAll(true), 0);
     // Re-sync card statuses
     ['arrive','bitola','ohrid','mavrovo','return'].forEach(k => {
       const sel = document.getElementById('status-' + k);
